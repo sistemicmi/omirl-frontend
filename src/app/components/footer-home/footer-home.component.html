@@ -1,0 +1,10 @@
+<div
+  *ngIf="!constants.isMobile && visible"
+  fxLayout="column"
+  [ngClass.xs]="{ small: true, 'logo-footer': true }"
+  [ngClass]="{ 'logo-footer': true }"
+>
+  <div class="address">
+    <p>ARPAL - Via Bombrini 8 - 16149 Genova</p>
+  </div>
+</div>

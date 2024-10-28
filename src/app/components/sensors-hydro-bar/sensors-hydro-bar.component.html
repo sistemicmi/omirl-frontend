@@ -1,0 +1,19 @@
+<div class="sensor-button-row">
+  <button
+    matTooltip="{{ translate.menuTranslations[sensor.description] }}"
+    (click)="onSensorClick(sensor.linkCode)"
+    *ngFor="let sensor of sensors"
+    mat-icon-button
+    style="width: 30px; height: 30px"
+  >
+    <!--<span *ngIf="sensor.link?.indexOf('hydro') != -1">{{
+      translate.menuTranslations[sensor.description]
+    }}</span>-->
+
+    <img
+      src="{{ 'https://omirl.regione.liguria.it/Omirl/' + sensor.link }}"
+      [ngClass]="{ selected: sensor.linkCode == selectedSensorType }"
+      style="width: 30px; height: 30px"
+    />
+  </button>
+</div>

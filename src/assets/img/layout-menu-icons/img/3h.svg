@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 225 104"
+   version="1.1"
+   id="svg12"
+   sodipodi:docname="3h.svg"
+   width="225"
+   height="104"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="6.5770216"
+     inkscape:cx="176.75174"
+     inkscape:cy="48.122086"
+     inkscape:window-width="1280"
+     inkscape:window-height="961"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1{fill:#3ea2d1;}</style>
+  </defs>
+  <g
+     id="Livello_2"
+     data-name="Livello 2"
+     transform="matrix(0.95008178,0,0,0.95008178,111.84781,-2.4069914e-4)">
+    <g
+       id="Layer_1"
+       data-name="Layer 1">
+      <path
+         class="cls-1"
+         d="m 65.39,64.73 q 4.79,6.27 4.79,15.88 0,13.33 -9.35,21 -9.35,7.67 -25.31,7.69 A 54.08,54.08 0 0 1 17.47,106.3 42.7,42.7 0 0 1 2.9,97.87 7.15,7.15 0 0 1 0,92.06 a 6.85,6.85 0 0 1 1.45,-4.42 4.36,4.36 0 0 1 3.48,-1.81 9.1,9.1 0 0 1 4.93,1.88 54.18,54.18 0 0 0 12.25,7 34.91,34.91 0 0 0 13,2.39 Q 55.69,97.1 55.7,79.56 55.7,71 50.26,66.72 44.82,62.44 33.78,62.49 h -8 a 5.49,5.49 0 0 1 -4.35,-1.82 6.24,6.24 0 0 1 -1.6,-4.28 6.06,6.06 0 0 1 1.6,-4.13 5.48,5.48 0 0 1 4.35,-1.81 h 5.65 q 10.59,0 16.17,-4.42 5.58,-4.42 5.58,-13 0,-7.53 -4.56,-11.75 -4.56,-4.22 -12.81,-4.18 -12.18,0 -24.36,9.43 A 9.07,9.07 0 0 1 6.52,28.41 4.33,4.33 0 0 1 3,26.6 6.89,6.89 0 0 1 1.55,22.18 7.14,7.14 0 0 1 4.45,16.38 43.11,43.11 0 0 1 18.92,8 51.6,51.6 0 0 1 36.39,5 q 14.36,0 22.84,7.11 8.48,7.11 8.48,19.28 a 26.78,26.78 0 0 1 -4.27,15.15 24.07,24.07 0 0 1 -12.11,9.35 q 9.27,2.53 14.06,8.84 z"
+         id="path6" />
+      <path
+         class="cls-1"
+         d="m 118.78,34.41 v 22 a 3.84,3.84 0 0 1 -1.19,3 4.37,4.37 0 0 1 -3.12,1.1 4.23,4.23 0 0 1 -3.09,-1.1 3.92,3.92 0 0 1 -1.14,-3 V 34.49 q 0,-5.07 -2.07,-7.44 -2.07,-2.37 -6.47,-2.37 a 11,11 0 0 0 -8.28,3.22 11.8,11.8 0 0 0 -3.13,8.62 v 19.86 a 3.92,3.92 0 0 1 -1.14,3 4.23,4.23 0 0 1 -3.09,1.1 4.4,4.4 0 0 1 -3.13,-1.1 3.87,3.87 0 0 1 -1.18,-3 V 4.06 A 3.77,3.77 0 0 1 83,1.1 4.56,4.56 0 0 1 86.15,0 a 4.21,4.21 0 0 1 3,1.06 3.67,3.67 0 0 1 1.14,2.83 V 25 a 14.21,14.21 0 0 1 5.71,-5.39 17.27,17.27 0 0 1 8.12,-1.86 q 14.67,0 14.66,16.66 z"
+         id="path8" />
+    </g>
+  </g>
+</svg>

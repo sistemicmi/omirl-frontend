@@ -1,0 +1,171 @@
+@import "../../../assets/css/colors.less";
+
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 0;
+}
+
+.gallery-wrapper {
+  align-items: center;
+  margin-top: 2%;
+
+  .ngx-gallery {
+    display: inline-block;
+    margin-bottom: 20px;
+    /* width: 500px;
+       height: 400px;
+       border-color: #4a89ff;*/
+  }
+}
+
+.animationbutton {
+  border: 0;
+  border-radius: 5px;
+  background-color: #7fbbdb;
+  color: white;
+  width: min-content;
+  margin-top: 2%;
+
+  &.clicked {
+    background-color: @mainmenubg;
+  }
+}
+
+.modelsgalleryMatIcon {
+  margin-left: -8px !important;
+  margin-bottom: 1px !important;
+}
+
+.gallery-button {
+  align-items: center;
+  margin-top: 2%;
+}
+
+mat-toolbar {
+  background-color: @mainmenubg;
+  color: @mainmenucolor;
+}
+
+mat-drawer {
+  overflow: visible;
+
+  &.rail .hideWhenMenuClosed {
+    h2,
+    .subtitle,
+    hr {
+      display: none;
+    }
+  }
+
+  &.closed .hideWhenMenuClosed {
+    display: none;
+  }
+
+  &.openPreview {
+    z-index: 1 !important;
+  }
+}
+
+mat-drawer-container {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+
+  h2 {
+    color: @mainmenubg;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+}
+
+mat-drawer-content {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+}
+
+.layermenu {
+  background-color: @secondarymenubg;
+  color: @secondarymenucolor;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  &.rail {
+    padding-right: 0px;
+    padding-left: 5px;
+  }
+
+  button {
+    &.close {
+      position: absolute;
+      top: 50%;
+      right: -11px;
+      border: 0;
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+.btn-select {
+  background-color: #ffffff;
+  color: @mainmenubg;
+  height: 40px;
+  margin-bottom: 1%;
+  margin-left: 0%;
+  margin-top: 1%;
+}
+
+.exceptionDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.tableName {
+  display: inline-block;
+  font-size: 24px;
+}
+
+.pagename {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.mat-drawer.mat-drawer-side {
+  margin-right: 20px;
+}
+
+.tableName {
+  width: 900px;
+  &.mobile {
+    width: 250px;
+    margin-bottom: 1%;
+  }
+}
+
+.menu-slider-container {
+  position: relative;
+  background-color: @mainmenubg;
+  left: 0;
+  align-items: center;
+}
+
+.menu-slider {
+  margin-left: 20px;
+  padding: 0px !important;
+  height: 31px;
+}
+
+.menu-slider-text {
+  color: white;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: smaller;
+}

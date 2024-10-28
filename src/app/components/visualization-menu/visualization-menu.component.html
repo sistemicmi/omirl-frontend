@@ -1,0 +1,28 @@
+<div class='menuContainer' ngClass.xs="bottom">
+	<mat-button-toggle-group>
+		<mat-button-toggle [visMenuTriggerFor]="menuSfondi">
+			<div class="visButton">
+				<mat-icon svgIcon='sfondi'></mat-icon>
+				<span>Sfondi</span>
+			</div>
+		</mat-button-toggle>
+		<mat-button-toggle [visMenuTriggerFor]="menuStratiInfo">
+			<div class="visButton">
+				<mat-icon svgIcon='strati-info'></mat-icon>
+				<span>Strati<br/>info</span>
+			</div>
+		</mat-button-toggle>
+		<mat-button-toggle>
+			<div class="visButton">
+				<mat-icon svgIcon='reset-zoom' (click)="resetZoom()"></mat-icon>
+				<span>Reset<br/>zoom</span>
+			</div>
+		</mat-button-toggle>
+	</mat-button-toggle-group>
+	<div class="panel" #menuSfondi>
+		<button mat-menu-item *ngFor="let bgLayer of backgroundLayers; index as i" [ngClass]="{'selected': bgLayer.selected}" (click)="onBgLayerClick(bgLayer)">{{bgLayer.name}}</button>
+	</div>
+	<div class="panel" #menuStratiInfo>
+		<button mat-menu-item *ngFor="let staticLayer of layerService.staticLayers; index as i" [ngClass]="{'selected': staticLayer.selected}" (click)="onStaticLayerClick(staticLayer)">{{translate.menuTranslations[staticLayer.description]}}</button>
+	</div>
+</div>

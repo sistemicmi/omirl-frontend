@@ -1,0 +1,134 @@
+@import "../../../assets/css/colors.less";
+
+.coloredContainerX {
+	padding:1%;
+	margin:0;
+}
+
+.mat-card {
+	background-color: @blue;
+}
+
+.world {
+	
+	header {
+		text-decoration:none;
+		color:@menugrey;
+		font-size: 1.4em;
+		font-weight:bold;
+		letter-spacing:1px;
+		padding:1em 0 0.5em 0;
+	}
+
+	p {
+		color:@menugrey;
+		font-size:1.2em
+	}
+
+	a {
+		text-decoration:none;
+	}
+}
+
+.headerimg {
+
+    img {
+        display:block;
+        width:100%;
+        height:auto;
+    }
+}
+
+mat-tree-node {
+
+	font-family:Arial, Helvetica, sans-serif;
+	color:@bodygrey;
+	min-height:auto;
+
+	a {
+		color:@bodygrey;
+		text-decoration:none;
+		cursor: pointer;
+	}
+
+	&.active, &[aria-level='1'], &.active a {
+		color:@mainmenubg;
+		font-weight: bold;
+	}
+
+	&[aria-level='1'] {
+
+		padding-bottom:0;
+		padding-top:0px;
+		margin-top:24px;
+
+		button {
+			text-transform: uppercase;
+		}
+	}
+
+	&[aria-level='1']:first-child {
+		margin-top:0;
+	}
+
+	&:not([aria-level='1']) {
+
+		padding-top:16px;
+
+		.mat-icon-button {
+			height:auto;
+			line-height:0;			
+		}
+	}
+
+	svg {
+		path {
+			stroke:@bodygrey;
+		}
+	}
+
+	&.noMobile {
+		font-size:14px;
+	}
+
+	mat-icon {
+		margin-right:12px;
+		border-radius:4px;
+	}
+
+	a {
+		display:flex;
+		align-items:center
+	}
+
+	span[matripple] {
+		display:none;
+	}
+
+}
+
+:host.rail {
+	
+	mat-tree-node {
+
+		mat-icon {
+			margin-right:0;
+		}
+
+		&.hasIcon {
+
+			.leafnodetext, .nodetext {
+				display:none;
+			}
+		}
+
+		&:not(.hasIcon)[style] {
+			margin-left:-23px;
+		}
+	}
+
+}
+
+button.mat-focus-indicator.mat-icon-button.mat-button-base[mattreenodetoggle] {
+    width: auto;
+}

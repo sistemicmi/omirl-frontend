@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Omirl</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <!--script>
+    //screen.orientation.addEventListener('change', function(e) { ... })
+    screen.orientation.onchange = function(e) {
+      let _AndroidDevice = navigator.userAgent.includes('Android');
+      let metaViewport = $('meta[name=viewport]').attr('content');
+
+      if (_AndroidDevice){
+
+        // After orientationchange, add a one-time resize event
+        $(window).one('resize', function() {
+          $('body').css('width', window.innerWidth)
+        });
+
+          // if (metaViewport.includes('initial-scale=1.001')) {
+          //     metaViewport = metaViewport.replace('initial-scale=1.001', 'initial-scale=1.0');
+          // } else {
+          //     metaViewport = metaViewport.replace('initial-scale=1.0', 'initial-scale=1.001');
+          // }
+
+          // $('meta[name=viewport]').attr('content', metaViewport);
+      }
+    }
+  </script-->
+  <script type="text/javascript">
+    (function(doc) {
+    
+        var addEvent = 'addEventListener',
+            type = 'gesturestart',
+            qsa = 'querySelectorAll',
+            scales = [1, 1],
+            meta = qsa in doc ? doc[qsa]('meta[name=viewport]') : [];
+    
+        function fix() {
+            meta.content = 'width=device-width,minimum-scale=' + scales[0] + ',maximum-scale=' + scales[1];
+            doc.removeEventListener(type, fix, true);
+        }
+    
+        if ((meta = meta[meta.length - 1]) && addEvent in doc) {
+            fix();
+            scales = [.25, 1.6];
+            doc[addEvent](type, fix, true);
+        }
+    
+    }(document));
+    </script>
+    
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+</body>
+</html>

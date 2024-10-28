@@ -1,0 +1,156 @@
+<div
+  comment='fxFlex.gt-xs fxFlex.xs="2.5 1 0" fxLayout.xs="column" fxLayoutAlign="start center"'
+  fxLayout.gt-xs="row"
+  fxLayoutAlign.xs="stretch"
+  class="tabletoolbar"
+  ngClass.gt-xs="wide"
+>
+  <div
+    fxLayout.xs="column"
+    fxLayout.gt-xs="column"
+    fxFlex
+    fxLayoutAlign.gt-xs="flex-start"
+    fxLayoutAlign.xs="space-between stretch"
+    fxLayoutGap="5px"
+  >
+    <div
+      style="text-align: left; display: block"
+      fxFlex.gt-xs
+      fxFlex.xs="2 0 0"
+      fxLayoutalign="start"
+      fxLayoutGap="10px"
+    >
+      <div fxLayout="column">
+        <span class="path">Home > Modelli Meteo-Marini</span>
+        <span
+          *ngIf="currentPage && currentPage != ''"
+          class="tableName"
+          [ngClass.xs]="{ mobile: true }"
+        >
+          <mat-icon
+            svgIcon="{{ currentPageIcon }}"
+            class="modelsGalleryPathIcon"
+          ></mat-icon>
+          {{ currentPage }}
+        </span>
+      </div>
+    </div>
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign.xs="center"
+      fxLayoutAlign.gt-xs="space-between"
+      fxFlex.gt-xs="3 1 0"
+      comment='fxFlex.xs="2 0 0"'
+    >
+      <div
+        comment='fxFlex.xs fxFlex.gt-xs="3 1 0"'
+        class="updateTime"
+        [ngClass.xs]="{ mobile: true }"
+      ></div>
+    </div>
+
+    <div fxLayout="row" class="menu-slider-container">
+      <p class="menu-slider-text">Dimensioni menù:</p>
+
+      <mat-slider
+        [max]="2"
+        [min]="0"
+        [step]="1"
+        [thumbLabel]="true"
+        [displayWith]="formatLabel"
+        [tickInterval]="1"
+        [(ngModel)]="menuStatus"
+        (change)="onMenuStatusChange($event)"
+        aria-labelledby="example-name-label"
+        class="menu-slider"
+      >
+      </mat-slider>
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container fxLayout="column" autosize>
+  <mat-drawer
+    #drawer
+    mode="side"
+    [opened]="true"
+    class="layermenu"
+    [ngClass]="{
+      closed: !isModelsGalleryMenuOpen,
+      openPreview: openPreview,
+      rail: isModelsGalleryMenuRail
+    }"
+  >
+    <button
+      *ngIf="isModelsGalleryMenuOpen"
+      class="close"
+      (click)="toggleRailModelsGalleryMenu()"
+    >
+      <mat-icon
+        *ngIf="isModelsGalleryMenuRail"
+        svgIcon="btn-arrow-right"
+      ></mat-icon>
+      <mat-icon
+        *ngIf="!isModelsGalleryMenuRail"
+        svgIcon="btn-arrow-left"
+      ></mat-icon>
+    </button>
+
+    <div class="hideWhenMenuClosed">
+      <h2 i18n>Selezione modelli</h2>
+
+      <div class="subtitle">Seleziona un modello dal menù sottostante</div>
+
+      <div *ngIf="isLogged()">
+        <date-time-picker
+          [initialDateValue]="session.getSelectedDateTimeCookie()"
+          (dateTimeChange)="onDateTimeChanged($event)"
+        ></date-time-picker>
+      </div>
+
+      <div class="menu">
+        <app-models-gallery-menu
+          [ngClass]="{ rail: isModelsGalleryMenuRail }"
+          (menuItemClicked)="onModelsGalleryMenuItemClicked($event)"
+          [path]="code"
+          (nodeFromPath)="preselectPath($event)"
+        ></app-models-gallery-menu>
+      </div>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div *ngIf="exception == 'homepage'" class="exceptionDiv">
+      <h1>Selezionare nel menù a sinistra un modello ed una variabile</h1>
+    </div>
+
+    <div *ngIf="exception == 'noImages'" class="exceptionDiv">
+      <h1>Nessuna immagine disponibile</h1>
+    </div>
+
+    <div *ngIf="exception == ''" style="margin-bottom: 10%">
+      <div fxLayout="column" class="gallery-button">
+        <button
+          class="animationbutton"
+          [ngClass]="{ clicked: animationButtonClicked }"
+          mat-button
+          (click)="animationToggle(carousel)"
+        >
+          <mat-icon class="modelsgalleryMatIcon" svgIcon="video"></mat-icon>
+          ANIMAZIONE
+        </button>
+      </div>
+      <div fxLayout="column" class="gallery-wrapper">
+        <ngx-gallery
+          #carousel
+          [options]="galleryOptions"
+          [images]="galleryImages"
+          (previewOpen)="setPreviewOpen(true)"
+          (previewClose)="setPreviewOpen(false)"
+          class="ngx-gallery"
+          [ngClass.xs]="{ mobile: true }"
+        ></ngx-gallery>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,431 @@
+/* You can add global styles to this file, and also import other style files */
+@import url(../node_modules/font-awesome/css/font-awesome.css);
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+app-map {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+}
+app-omirlsite {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+mat-tree-node[aria-level="1"] svg .cls-1 {
+  stroke: #104190;
+}
+mat-tree-node:not([aria-level="1"]) svg path {
+  stroke: #747474;
+}
+mat-tree-node.active svg path {
+  stroke: #104190;
+}
+.hidden {
+  display: none;
+}
+body .mat-dialog-container {
+  padding: 0px;
+}
+body .mat-dialog-content {
+  padding: 0px;
+  margin: 0;
+}
+.stationMainValue svg {
+  width: 35px;
+}
+.stationMainValue svg path {
+  stroke: #ffffff;
+}
+
+.maptoolbar {
+  background-color: #104190;
+  color: #ffffff;
+  padding: 10px 10px 1px 10px;
+}
+.tabletoolbar {
+  background-color: #104190;
+  color: #ffffff;
+  padding: 10px 10px 1px 10px;
+}
+
+.maptoolbar.wide {
+  padding: 10px;
+}
+
+.mat-form-field-flex .mat-form-field-infix {
+  width: auto;
+  border: 0;
+  padding: 1em 0 0.5em 0;
+}
+
+.filterRow h4 {
+  margin: 0;
+}
+
+.updateTime,
+.viewingData {
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewingData svg path {
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+}
+
+.viewingData svg line,
+.viewingData svg polyline {
+  stroke: #ffffff;
+  stroke-width: 20px;
+}
+
+.ol-attribution {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ol-attribution ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* .ol-overlaycontainer-stopevent {
+  display: flex;
+  align-content: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+} */
+
+.ol-zoom.ol-unselectable.ol-control {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.ol-rotate.ol-unselectable.ol-control.ol-hidden {
+  position: absolute;
+  bottom: 21px;
+  right: 0;
+}
+
+tables-menu .mat-tree-node svg path {
+  stroke: #104190;
+}
+
+#legendSensor .mat-mini-fab.mat-accent svg path,
+#legendMap .mat-mini-fab.mat-accent svg path {
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+}
+
+.legendSatelliteIcon .mat-mini-fab.mat-accent svg path,
+.legendSatelliteIcon .mat-mini-fab.mat-accent svg line {
+  stroke: #ffffff;
+  stroke-width: 20px !important;
+}
+
+#legendSensor svg line,
+#legendSensor svg polyline {
+  stroke: #ffffff;
+  stroke-width: 20px;
+}
+
+a.visButton.selected svg path {
+  fill: #ffffff !important;
+}
+
+sensors-bar svg path.cls-1,
+sensors-bar svg ellipse.cls-1,
+sensors-bar svg line.cls-1 {
+  stroke: #adadad;
+  stroke-width: 15px;
+}
+
+sensors-bar svg path.cls-2 {
+  fill: none;
+  stroke: #adadad;
+  stroke-width: 15px;
+}
+
+html {
+  --scrollbarBG: #cfd8dc;
+  --thumbBG: #90a4ae;
+}
+.mat-drawer-inner-container::-webkit-scrollbar {
+  width: 11px;
+}
+.mat-drawer-inner-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  /*padding-right:10px;*/
+}
+.mat-drawer-inner-container[cdkscrollable] {
+  overflow-x: hidden;
+  overflow-y: auto;
+  /*padding-right:20px;*/
+}
+.mat-drawer-inner-container::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+.timepicker__body {
+  background-color: #dddcdc !important;
+}
+
+.timepicker__header {
+  background-color: #104190 !important;
+}
+
+.clock-face__clock-hand {
+  background-color: rgb(68, 169, 209) !important;
+}
+.clock-face {
+  background-color: #fffbfb !important;
+}
+
+.timepicker__actions {
+  background-color: #104190 !important;
+}
+.clock-face__number.clock-face__number--outer.ng-star-inserted .active {
+  background-color: rgb(21, 45, 99) !important;
+}
+.timepicker-dial__control .active {
+  border: ridge !important;
+  border-radius: 10px;
+}
+.timepicker-dial__control {
+  color: #ffffff !important;
+  background-color: #083680 !important;
+  border: solid;
+  font-size: 50px;
+  width: 60px;
+  padding: 0;
+  border-radius: 3px !important;
+}
+
+.timepicker-button {
+  color: rgb(255, 255, 255) !important;
+}
+.ngx-material-timepicker-toggle {
+  width: 24px;
+  height: 14px;
+  padding: 0%;
+}
+.ngx-material-timepicker-toggle svg path {
+  stroke: #b8b8b8;
+}
+
+.mat-bottom-sheet-container {
+  border-radius: 20px 20px 0 0;
+}
+
+span[matripple] {
+  display: none;
+}
+
+.satelliteradarbuttons {
+  margin: 2% !important;
+  background-color: #d1d1d1;
+}
+
+.selectedSatelliteradarbuttons {
+  margin: 2% !important;
+  color: white;
+  background-color: #104190;
+}
+
+.satelliteradarMatIcon svg path {
+  stroke: black;
+}
+
+.satelliteradarMatIcon svg {
+  margin-left: -20px;
+}
+
+.selectedSatelliteradarMatIcon svg path {
+  stroke: white;
+}
+
+.selectedSatelliteradarMatIcon svg {
+  margin-left: -20px;
+}
+
+.sensor-button-row .mat-button-base.selected svg path {
+  stroke: #104190;
+}
+
+.mat-button-toggle-checked svg path {
+  stroke: #ffffff;
+}
+
+.homePageButtonsContainer svg path {
+  stroke: white;
+}
+
+.homePageButtonsContainer .mat-button-wrapper div {
+  display: flex;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(0, 0, 0, 0.38) !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #104190 !important;
+}
+
+.modelsgalleryMatIcon svg path {
+  stroke: #ffffff;
+}
+
+.ngx-gallery-image.ngx-gallery-active.ngx-gallery-clickable.ng-star-inserted {
+  transform: none !important;
+  transition: none !important;
+  background-size: contain !important;
+}
+
+.ngx-gallery-image.ngx-gallery-inactive-left.ngx-gallery-clickable.ng-star-inserted {
+  transform: none !important;
+  transition: none !important;
+  background-size: contain !important;
+}
+
+.ngx-gallery-image.ng-star-inserted.ngx-gallery-inactive-left.ngx-gallery-clickable {
+  transform: none !important;
+  transition: none !important;
+}
+
+.ngx-gallery-image.ng-star-inserted.ngx-gallery-inactive-right.ngx-gallery-clickable {
+  transition: none !important;
+}
+
+.animationbutton .mat-button-wrapper {
+  margin-left: 10px;
+}
+
+.fa.fa-chevron-left.ngx-gallery-icon-content:not(ngx-gallery-preview *) {
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  padding-left: 2px;
+  background-color: #7fbbdb;
+  border-radius: 50%;
+}
+
+.fa.fa-chevron-right.ngx-gallery-icon-content:not(ngx-gallery-preview *) {
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  background-color: #7fbbdb;
+  border-radius: 50%;
+}
+
+.modelsGalleryPathIcon svg path {
+  stroke: white;
+}
+
+ngx-gallery.mobile ngx-gallery-preview .ngx-gallery-icon {
+  margin-top: 45% !important;
+}
+
+ngx-gallery-preview .fa.fa-chevron-right.ngx-gallery-icon-content {
+  background-color: hsl(0deg 0% 29% / 60%);
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  border-radius: 50%;
+}
+
+ngx-gallery-preview .fa.fa-chevron-left.ngx-gallery-icon-content {
+  background-color: hsl(0deg 0% 29% / 60%);
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  padding-left: 2px;
+  border-radius: 50%;
+}
+
+#settings-map .ol-viewport {
+  border-radius: 20px !important;
+}
+
+.layersArea .mat-form-field-flex {
+  border-radius: 20px !important;
+}
+
+.layersArea .mat-form-field-underline {
+  position: unset !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 98% !important;
+}
+
+.acessarea mat-nav-list {
+  padding: 0 !important;
+  padding-top: 2px !important;
+  margin-top: 1px !important;
+}
+
+.acessarea div {
+  margin-top: 1px !important;
+}
+
+.mat-accent .mat-slider-track-fill,
+.mat-accent .mat-slider-thumb {
+  background-color: white !important;
+}
+
+.mat-accent .mat-slider-thumb-label {
+  background-color: #90a4ae;
+  width: 50px;
+  height: 50px;
+  top: -62px !important;
+  right: -25px !important;
+}
+
+.mat-slider-track-background {
+  background-color: white;
+}
+
+.mat-slider-horizontal .mat-slider-wrapper {
+  top: 15px !important;
+}
+
+mat-sidenav-content.tables {
+  overflow: hidden !important;
+}
+
+mat-sidenav-content.tables main {
+  height: 100vh;
+}
+
+mat-sidenav-content.tables tables mat-drawer-content {
+  overflow: scroll !important;
+  overflow-x: hidden !important;
+}

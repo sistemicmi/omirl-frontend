@@ -1,0 +1,17 @@
+<div class="chart" 
+	cdkDrag 
+	cdkDragRootElement=".cdk-overlay-pane"
+	ccdkDragBoundary=".cdk-overlay-container"
+	(cdkDragEnded)="dragEnd($event)"
+>
+	<div (click)="bringOnTop()" class="charttitlebar" cdkDragHandle>{{data.name}}<br>{{data.basin}} [{{data.river}}]
+		<button mat-dialog-close class="closebtn"><mat-icon>close</mat-icon></button>
+	</div>
+	<!--img src="../assets/img/grafico.png"-->
+	<div class="imgcontainer">
+		<img class="chartimg" [src]="chartImages[0]" #imageElement style="height:50vh" />
+		<!-- <angular-image-viewer *ngIf="chartImages.length > 0" [src]="chartImages"></angular-image-viewer> -->&nbsp;
+		<h1 *ngIf="chartImages.length == 0">Immagine non disponibile</h1>
+	</div>
+	<sensors-hydro-bar [selectedSensorType]="selectedSensorType" [chartList]="chartList" [sensorsData] = "sensorsData" (sensorClicked)="onSensorClick($event)"></sensors-hydro-bar><mat-icon class="zoom" (click)=zoomIn()>zoom_in</mat-icon><mat-icon class="zoom" (click)=zoomOut()>zoom_out</mat-icon>
+</div>

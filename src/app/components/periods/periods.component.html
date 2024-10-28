@@ -1,0 +1,27 @@
+<table *ngIf="isLogged()" fxFlex fxLayout="column" class="framedata">
+  <fieldset disabled="disabled">
+    <div class="panel-heading">Gestione Periodi</div>
+
+    <div fxLayout="row" class="namebox">
+      <p>Data Iniziale</p>
+      <p>Data Finale</p>
+    </div>
+
+    <ng-container *ngFor="let period of periods">
+      <div fxLayout="row" class="period">
+        <input
+          class="boxdate"
+          type="datetime"
+          id="{{ period.idPeriod + '-start' }}"
+          value="{{ period.timestampStart }}"
+        />
+        <input
+          class="boxdate"
+          type="datetime"
+          id="{{ period.idPeriod + '-end' }}"
+          value="{{ period.timestampEnd }}"
+        />
+      </div>
+    </ng-container>
+  </fieldset>
+</table>

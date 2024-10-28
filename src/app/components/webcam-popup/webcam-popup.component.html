@@ -1,0 +1,16 @@
+<div class="chart" 
+	cdkDrag 
+	cdkDragRootElement=".cdk-overlay-pane"
+	ccdkDragBoundary=".cdk-overlay-container"
+	(cdkDragEnded)="dragEnd($event)"
+>
+	<div (click)="bringOnTop()" class="charttitlebar" cdkDragHandle>{{data.name}}
+		<button mat-dialog-close class="closebtn"><mat-icon>close</mat-icon></button>
+	</div>
+	<!--img src="../assets/img/grafico.png"-->
+	<div class="imgcontainer">
+		<img class="chartimg" [src]="chartImage" #imageElement style="height:50vh" />
+		<!-- <angular-image-viewer *ngIf="chartImages.length > 0" [src]="chartImages"></angular-image-viewer> -->&nbsp;
+		<h1 *ngIf="!data.imgPath">Immagine non disponibile</h1>
+	</div>
+</div>

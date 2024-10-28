@@ -1,0 +1,21 @@
+<mat-sidenav-container fxFlex fxLayout="column">
+  <mat-sidenav
+    class="mainmenu"
+    #sidenav
+    position="start"
+    role="navigation"
+    (sidenavLayoutToggle)="sidenav.toggle()"
+  >
+    <app-mainmenu></app-mainmenu>
+  </mat-sidenav>
+  <mat-sidenav-content
+    fxFlex
+    fxLayout="column"
+    [ngClass]="{ tables: isTables }"
+  >
+    <!--in here all the content must reside. We will add a navigation header as well-->
+    <main fxFlex fxLayout="column">
+      <ng-content fxFlex fxLayout="column"></ng-content>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

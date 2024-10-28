@@ -1,0 +1,14 @@
+<div class="sensor-button-row">
+  <button
+    matTooltip="{{ translate.menuTranslations[sensor.description] }}"
+    (click)="onSensorClick(sensor.code)"
+    *ngFor="let sensor of sensors"
+    mat-icon-button
+    [ngClass]="{ selected: sensor.code == selectedSensorType }"
+  >
+    <mat-icon
+      svgIcon="{{ icons.registerSvgIcon(sensor.imageLinkOff) }}"
+    ></mat-icon>
+    <!-- <div *ngIf="sensor.link?.indexOf('hydro') != -1">{{translate.menuTranslations[sensor.description]}}</div>-->
+  </button>
+</div>

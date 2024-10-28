@@ -1,0 +1,73 @@
+<div
+	fxLayout="column"
+	fxLayoutAlign="space-evenly center"
+	class="inserted"
+	>
+	<div fxLayout="row">
+	<mat-form-field>
+		<input
+		matInput
+		readonly
+		[formControl]="dateControl"
+		[matDatepicker]="datePicker"
+		(focus)="datePicker.open()" 
+		/>
+
+		<mat-datepicker-toggle
+		matSuffix
+		[for]="datePicker"
+		></mat-datepicker-toggle>
+
+		<mat-datepicker #datePicker></mat-datepicker>
+	</mat-form-field>
+
+	<button
+		class="time"
+		mat-icon-button
+		color
+		(click)="cleanDate()"
+		style="margin-left: 30px"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+	</div>
+
+	<div fxLayout="row">
+	<mat-form-field>
+		<input
+		matInput
+		timepickerClass="string"
+		[formControl]="timeControl"
+		[ngxTimepicker]="timePicker"
+		[format]="24"
+		/>
+		<ngx-material-timepicker-toggle
+		matSuffix
+		[for]="timePicker"
+		></ngx-material-timepicker-toggle>
+		<ngx-material-timepicker
+		#timePicker
+		[minutesGap]="5"
+		[timepickerClass]="'customclass'"
+		[enableKeyboardInput]="true"		
+		>
+		</ngx-material-timepicker>
+	</mat-form-field>
+
+	<button
+		class="time"
+		mat-icon-button
+		color
+		(click)="cleanTime()"
+		style="margin-left: 30px"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+	</div>
+	<p class="dateTimeInfo" *ngIf="!selectedDateTime">
+	Situazione in tempo reale
+	</p>
+	<p class="dateTimeInfo" *ngIf="!!selectedDateTime">
+	Stai visualizzando i dati raccolti nella data/ora specificata
+	</p>
+</div>

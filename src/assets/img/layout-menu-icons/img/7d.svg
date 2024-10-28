@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 225 104"
+   version="1.1"
+   id="svg12"
+   sodipodi:docname="7d.svg"
+   width="225"
+   height="104"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     width="225px"
+     inkscape:zoom="3.2843048"
+     inkscape:cx="103.06595"
+     inkscape:cy="54.65388"
+     inkscape:window-width="1280"
+     inkscape:window-height="961"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1{fill:#3ea2d1;}</style>
+  </defs>
+  <g
+     id="Livello_2"
+     data-name="Livello 2"
+     transform="matrix(0.94886352,0,0,0.94886352,111.3906,-3.4043028e-4)">
+    <g
+       id="Layer_1"
+       data-name="Layer 1">
+      <path
+         class="cls-1"
+         d="m 70.25,7.82 a 6.24,6.24 0 0 1 1.67,4.49 11.56,11.56 0 0 1 -1.59,5.52 l -47.42,87.58 c -1.55,2.7 -3.67,4 -6.38,4 a 7.44,7.44 0 0 1 -5,-1.95 6.2,6.2 0 0 1 -2.25,-4.86 9.4,9.4 0 0 1 1.16,-4.06 L 54.08,18.41 H 7 A 7.46,7.46 0 0 1 1.78,16.81 5.79,5.79 0 0 1 0,12.31 Q 0,6.09 7,6.08 h 58.39 a 6.42,6.42 0 0 1 4.86,1.74 z"
+         id="path6" />
+      <path
+         class="cls-1"
+         d="m 117.88,1.1 a 3.84,3.84 0 0 1 1.19,3 v 52.2 a 4,4 0 0 1 -1.14,3 4.89,4.89 0 0 1 -6.18,0 4,4 0 0 1 -1.14,-3 v -3.38 a 13,13 0 0 1 -5.41,5.7 16.43,16.43 0 0 1 -8.2,2 17.16,17.16 0 0 1 -9.51,-2.7 A 18,18 0 0 1 81,50.3 26,26 0 0 1 78.68,39.05 25.59,25.59 0 0 1 81,27.81 17.07,17.07 0 0 1 97,17.75 a 16.33,16.33 0 0 1 8.16,2 13.24,13.24 0 0 1 5.37,5.62 V 3.89 a 3.67,3.67 0 0 1 1.14,-2.83 4.34,4.34 0 0 1 3.09,-1.06 4.42,4.42 0 0 1 3.12,1.1 z M 107.57,50 q 3,-3.8 3,-10.82 0,-7.02 -3,-10.82 -3,-3.79 -8.58,-3.8 a 10.55,10.55 0 0 0 -8.66,3.76 q -3.09,3.77 -3.09,10.69 0,6.92 3.13,10.87 A 10.41,10.41 0 0 0 99,53.85 10.3,10.3 0 0 0 107.57,50 Z"
+         id="path8" />
+    </g>
+  </g>
+</svg>

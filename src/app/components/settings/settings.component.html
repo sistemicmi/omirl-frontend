@@ -1,0 +1,257 @@
+<div *ngIf="constantsService.logged">
+  <mat-accordion>
+    <mat-expansion-panel
+      class="panel"
+      (opened)="datePanel = true"
+      (closed)="datePanel = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <p class="titles">IMPOSTAZIONI DATA / ORA</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <date-time-picker
+        [initialDateValue]="session.getSelectedDateTimeCookie()"
+        (dateTimeChange)="onDateTimeChanged($event)"
+      ></date-time-picker>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel
+      class="panel nested"
+      (opened)="accountPanel = true"
+      (closed)="accountPanel = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <p class="titles">IMPOSTAZIONI ACCOUNT</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div fxLayout="column">
+        {{ form.it["email"] }}
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            type="text"
+            placeholder=" {{ getEmail() }}"
+            [formControl]="email"
+          />
+        </mat-form-field>
+
+        {{ form.it["username"] }}
+
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            type="text"
+            placeholder="{{ getUserName() }}"
+            [formControl]="username"
+          />
+        </mat-form-field>
+
+        <mat-slide-toggle class="slider" (change)="onChangePassword()">
+          Abilita modifica password
+        </mat-slide-toggle>
+
+        {{ form.it["oldPwd"] }}
+
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            type="text"
+            placeholder="Vecchia password"
+            [type]="hideOldPwd ? 'password' : 'text'"
+            [formControl]="oldPwd"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hideOldPwd = !hideOldPwd"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideOldPwd"
+          >
+            <mat-icon>{{
+              hideOldPwd ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        {{ form.it["newPwd"] }}
+
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            type="text"
+            placeholder="Nuova password"
+            [type]="hideNewPwd ? 'password' : 'text'"
+            [formControl]="newPwd"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hideNewPwd = !hideNewPwd"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideNewPwd"
+          >
+            <mat-icon>{{
+              hideNewPwd ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        {{ form.it["checkPwd"] }}
+
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            type="text"
+            placeholder="Conferma password"
+            [type]="hideCheckPwd ? 'password' : 'text'"
+            [formControl]="checkPwd"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hideCheckPwd = !hideCheckPwd"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideCheckPwd"
+          >
+            <mat-icon>{{
+              hideCheckPwd ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="saveButton"
+    (click)="saveAccountSettings()"
+  >
+    Salva impostazioni DATA / ORA / ACCOUNT
+  </button>
+
+  <div
+    fxLayout="row"
+    *ngIf="!saveAccountStatusOK && saveAccountResponse != ''"
+    class="alert"
+  >
+    <mat-icon>warning</mat-icon>
+    {{ saveAccountResponse }}
+  </div>
+
+  <div fxLayout="row" *ngIf="saveAccountStatusOK" class="success">
+    <mat-icon>check_circle_icon</mat-icon>
+    <p>Dati salvati correttamente</p>
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel
+      class="panel"
+      (opened)="mapPanel = true; this.setUpMap(); this.resizeMap()"
+      (closed)="mapPanel = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <p class="titles">IMPOSTAZIONI MAPPA</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div fxLayout="row" class="mapArea">
+        <div fxLayout="column">
+          {{ form.it["latitude"] }}
+
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="number"
+              placeholder="{{ getLatitude() }}"
+              [formControl]="latitude"
+            />
+          </mat-form-field>
+
+          {{ form.it["longitude"] }}
+
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="number"
+              placeholder="{{ getLongitude() }}"
+              [formControl]="longitude"
+            />
+          </mat-form-field>
+
+          {{ form.it["zoom"] }}
+
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="number"
+              placeholder="{{ getZoom() }}"
+              [formControl]="zoom"
+            />
+          </mat-form-field>
+        </div>
+
+        <div
+          id="settings-map"
+          class="map-container"
+          fxFlex
+          fxLayout="column"
+        ></div>
+      </div>
+
+      <div fxLayout="column" class="layersArea">
+        <mat-form-field appearance="fill">
+          <mat-label>Layer Stazioni</mat-label>
+          <mat-select [(value)]="selectedLayerStazioni">
+            <mat-option *ngFor="let sensor of sensors" [value]="sensor.code">
+              {{ sensor.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Layer Statici</mat-label>
+          <mat-select [(value)]="selectedStaticLayers" multiple>
+            <mat-option
+              *ngFor="let layer of staticLayers"
+              [value]="layer.description"
+            >
+              {{ layer.description_translated }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="saveButton"
+    (click)="saveMapSettings()"
+  >
+    Salva impostazioni MAPPA
+  </button>
+</div>
+
+<div
+  fxLayout="row"
+  *ngIf="!saveMapStatusOK && saveMapResponse != ''"
+  class="alert"
+>
+  <mat-icon>warning</mat-icon>
+  {{ saveMapResponse }}
+</div>
+
+<div fxLayout="row" *ngIf="saveMapStatusOK" class="success">
+  <mat-icon>check_circle_icon</mat-icon>
+  <p>Dati salvati correttamente</p>
+</div>

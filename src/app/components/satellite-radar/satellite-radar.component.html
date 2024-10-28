@@ -1,0 +1,443 @@
+<div
+  fxLayout.gt-xs="row"
+  fxLayoutAlign.xs="stretch"
+  class="tabletoolbar"
+  ngClass.gt-xs="wide"
+>
+  <div
+    fxLayout.xs="column"
+    fxLayout.gt-xs="row"
+    fxFlex
+    fxLayoutAlign.gt-xs="space-between center"
+    fxLayoutAlign.xs="space-between stretch"
+    fxLayoutGap="5px"
+  >
+    <div
+      style="text-align: left"
+      fxFlex.gt-xs
+      fxFlex.xs="2 0 0"
+      fxLayout="row wrap"
+      fxLayoutalign="start"
+      fxLayoutGap="10px"
+    >
+      <div fxLayout="column">
+        <span class="path">Home > Satellite e Radar</span>
+        <span class="tableName">{{
+          service ? service.charAt(0).toUpperCase() + service.slice(1) : ""
+        }}</span>
+
+        <div fxLayout="row" class="menu-slider-container">
+          <p class="menu-slider-text">Dimensioni menù:</p>
+
+          <mat-slider
+            [max]="2"
+            [min]="0"
+            [step]="1"
+            [thumbLabel]="true"
+            [displayWith]="formatLabel"
+            [tickInterval]="1"
+            [(ngModel)]="menuStatus"
+            (change)="onMenuStatusChange($event)"
+            aria-labelledby="example-name-label"
+            class="menu-slider"
+          >
+          </mat-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container fxLayout="column" autosize>
+  <mat-drawer
+    #drawer
+    mode="side"
+    [opened]="true"
+    class="layermenu"
+    [ngClass]="{
+      closed: !isSatelliteRadarMenuOpen,
+      rail: isSatelliteRadarMenuRail,
+      fullscreen: fullscreen
+    }"
+  >
+    <button
+      *ngIf="isSatelliteRadarMenuOpen"
+      class="close"
+      (click)="toggleRailSatelliteRadarMenu()"
+    >
+      <mat-icon
+        *ngIf="isSatelliteRadarMenuRail"
+        svgIcon="btn-arrow-right"
+      ></mat-icon>
+      <mat-icon
+        *ngIf="!isSatelliteRadarMenuRail"
+        svgIcon="btn-arrow-left"
+      ></mat-icon>
+    </button>
+    <div class="hideWhenMenuClosed">
+      <h2 i18n>Selezione satellite o radar</h2>
+
+      <div class="subtitle">Seleziona uno strumento dal menù sottostante</div>
+
+      <div *ngIf="isLogged()">
+        <date-time-picker
+          [initialDateValue]="session.getSelectedDateTimeCookie()"
+          (dateTimeChange)="onDateTimeChanged($event)"
+        ></date-time-picker>
+      </div>
+
+      <div class="menu">
+        <app-satellite-radar-menu
+          [ngClass]="{ rail: isSatelliteRadarMenuRail }"
+          (menuItemClicked)="onSatelliteRadarMenuItemClicked($event)"
+          [path]="
+            '/satellite-radar/' +
+            service +
+            '/' +
+            area +
+            '/' +
+            type +
+            '/Immagine'
+          "
+        ></app-satellite-radar-menu>
+      </div>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content fxLayout="column">
+    <div *ngIf="isHomePage()">
+      <div fxLayout="row" class="homePageButtonsRow">
+        <div fxLayout="column" class="homePageButtonsContainer">
+          <button
+            mat-fab
+            class="homePageButtons"
+            [ngClass]="{ active: satelliteHomeButtonClicked }"
+            (click)="onSatelliteHomeButtonClick()"
+          >
+            <mat-icon svgIcon="satellite"></mat-icon>
+          </button>
+
+          <div class="text" align="center">
+            <header>SATELLITE</header>
+
+            <p align="center">Visualizza rilevazioni satellite</p>
+          </div>
+        </div>
+
+        <div fxLayout="column" class="homePageButtonsContainer">
+          <button
+            mat-fab
+            class="homePageButtons"
+            [ngClass]="{ active: radarHomeButtonClicked }"
+            (click)="onRadarHomeButtonClick()"
+          >
+            <div align="center">
+              <mat-icon svgIcon="radar"></mat-icon>
+            </div>
+          </button>
+
+          <div class="text" align="center" fxLayout="column">
+            <header>RADAR</header>
+
+            <p align="center">Visualizza rilevazioni radar</p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="radarHomeButtonClicked"
+        class="homePageLinksArea"
+        [ngClass.xs]="{ mobile: true }"
+      >
+        <div
+          fxLayout="column"
+          class="homePageLinks firstArea"
+          [ngClass.xs]="{ mobile: true }"
+        >
+          <h2>Liguria</h2>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl('/satellite-radar/radar/Liguria/Rain5m/Immagine')
+            "
+          >
+            Intensità oraria pioggia
+          </button>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl('/satellite-radar/radar/Liguria/Rain10m/Immagine')
+            "
+          >
+            Pioggia cumulata 10'
+          </button>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl('/satellite-radar/radar/Liguria/Rain1h/Immagine')
+            "
+          >
+            Cumulata oraria pioggia
+          </button>
+          <button
+            mat-button
+            *ngIf="!isMobile()"
+            (click)="
+              navigateByUrl(
+                '/satellite-radar/radar/Liguria/Rain1hPluvio/Immagine'
+              )
+            "
+          >
+            Pioggia 1h Radar + Pluviometri
+          </button>
+        </div>
+        <div
+          fxLayout="column"
+          class="homePageLinks lastArea"
+          [ngClass.xs]="{ mobile: true }"
+        >
+          <h2>Piemonte</h2>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl('/satellite-radar/radar/Piemonte/Rain5m/Immagine')
+            "
+          >
+            Intensità oraria pioggia
+          </button>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl('/satellite-radar/radar/Piemonte/Rain1h/Immagine')
+            "
+          >
+            Cumulata oraria pioggia
+          </button>
+          <button
+            mat-button
+            *ngIf="!isMobile()"
+            (click)="
+              navigateByUrl('/satellite-radar/radar/Piemonte/Riflet/Immagine')
+            "
+          >
+            Riflettività
+          </button>
+        </div>
+      </div>
+
+      <div
+        *ngIf="satelliteHomeButtonClicked"
+        class="homePageLinksArea"
+        [ngClass.xs]="{ mobile: true }"
+      >
+        <div
+          fxLayout="column"
+          class="homePageLinks firstArea"
+          [ngClass.xs]="{ mobile: true }"
+        >
+          <h2>Nord-Italia</h2>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl(
+                '/satellite-radar/satellite/Nord-Italia/Vis/Immagine'
+              )
+            "
+          >
+            Visibile
+          </button>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl(
+                '/satellite-radar/satellite/Nord-Italia/Ir/Immagine'
+              )
+            "
+          >
+            IR 10.8
+          </button>
+          <button
+            mat-button
+            *ngIf="!isMobile()"
+            (click)="
+              navigateByUrl(
+                '/satellite-radar/satellite/Nord-Italia/Fulm/Immagine'
+              )
+            "
+          >
+            Radar + Fulmini + IR 10.8
+          </button>
+        </div>
+
+        <div
+          fxLayout="column"
+          class="homePageLinks"
+          [ngClass.xs]="{ mobile: true, lastArea: true }"
+        >
+          <h2>Mediterraneo</h2>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl(
+                '/satellite-radar/satellite/Mediterraneo/Vis/Immagine'
+              )
+            "
+          >
+            Visibile
+          </button>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl(
+                '/satellite-radar/satellite/Mediterraneo/Ir/Immagine'
+              )
+            "
+          >
+            IR 10.8
+          </button>
+        </div>
+
+        <div
+          *ngIf="!isMobile()"
+          fxLayout="column"
+          class="homePageLinks lastArea"
+          [ngClass.xs]="{ mobile: true }"
+        >
+          <h2>Rapid-Scan</h2>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl(
+                '/satellite-radar/satellite/Rapid-Scan/Vis/Immagine'
+              )
+            "
+          >
+            Visibile
+          </button>
+          <button
+            mat-button
+            (click)="
+              navigateByUrl('/satellite-radar/satellite/Rapid-Scan/Ir/Immagine')
+            "
+          >
+            IR 10.8
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <mat-icon
+      *ngIf="!isHomePage()"
+      matTooltip="Stai visualizzando: {{ area + '\n' + pageDescription }}"
+      [matTooltipPosition]="'after'"
+      class="infoIcon"
+      [ngClass.xs]="{ mobile: true }"
+      >info
+    </mat-icon>
+
+    <div
+      *ngIf="!isHomePage()"
+      fxLayout="column"
+      class="imageArea"
+      [ngClass.xs]="{ mobile: true }"
+    >
+      <div
+        fxLayout="row"
+        class="desktopButtonsArea"
+        [ngClass.xs]="{ mobile: true }"
+      >
+        <button
+          mat-button
+          [ngClass]="{
+            satelliteradarbuttons: format != 'Immagine',
+            selectedSatelliteradarbuttons: format == 'Immagine'
+          }"
+          (click)="onImageButtonClick()"
+        >
+          <mat-icon
+            svgIcon="photo"
+            [ngClass]="{
+              satelliteradarMatIcon: format != 'Immagine',
+              selectedSatelliteradarMatIcon: format == 'Immagine'
+            }"
+          ></mat-icon>
+          IMMAGINE
+        </button>
+        <button
+          mat-button
+          [ngClass]="{
+            satelliteradarbuttons: format != 'Animazione',
+            selectedSatelliteradarbuttons: format == 'Animazione'
+          }"
+          (click)="onAnimationButtonClick()"
+        >
+          <mat-icon
+            svgIcon="video"
+            [ngClass]="{
+              satelliteradarMatIcon: format != 'Animazione',
+              selectedSatelliteradarMatIcon: format == 'Animazione'
+            }"
+          ></mat-icon>
+          ANIMAZIONE
+        </button>
+      </div>
+
+      <img
+        id="myImg"
+        (click)="fullscreen = true"
+        class="image"
+        src="{{ src }}"
+      />
+
+      <!-- The Modal -->
+      <div *ngIf="fullscreen" id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close" (click)="fullscreen = false">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01" src="{{ src }}" />
+      </div>
+
+      <div
+        fxLayout="row"
+        class="mobileButtonsArea"
+        [ngClass.xs]="{ mobile: true }"
+      >
+        <button
+          mat-button
+          [ngClass]="{
+            satelliteradarbuttons: format != 'Immagine',
+            selectedSatelliteradarbuttons: format == 'Immagine'
+          }"
+          (click)="onImageButtonClick()"
+        >
+          <mat-icon
+            svgIcon="photo"
+            [ngClass]="{
+              satelliteradarMatIcon: format != 'Immagine',
+              selectedSatelliteradarMatIcon: format == 'Immagine'
+            }"
+          ></mat-icon>
+          <p>IMMAGINE</p>
+        </button>
+        <button
+          mat-button
+          [ngClass]="{
+            satelliteradarbuttons: format != 'Animazione',
+            selectedSatelliteradarbuttons: format == 'Animazione'
+          }"
+          (click)="onAnimationButtonClick()"
+        >
+          <mat-icon
+            svgIcon="video"
+            [ngClass]="{
+              satelliteradarMatIcon: format != 'Animazione',
+              selectedSatelliteradarMatIcon: format == 'Animazione'
+            }"
+          ></mat-icon>
+          <p>ANIMAZIONE</p>
+        </button>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

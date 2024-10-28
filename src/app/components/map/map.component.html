@@ -1,0 +1,243 @@
+<div
+  comment='fxFlex.gt-xs fxFlex.xs="2.5 1 0" fxLayout.xs="column" fxLayoutAlign="start center"'
+  fxLayout.gt-xs="row"
+  fxLayoutAlign.xs="stretch"
+  class="maptoolbar"
+  ngClass.gt-xs="wide"
+>
+  <div
+    fxLayout.xs="column"
+    fxLayout.gt-xs="row"
+    fxFlex
+    fxLayoutAlign.gt-xs="space-between center"
+    fxLayoutAlign.xs="space-between stretch"
+    fxLayoutGap="5px"
+  >
+    <div fxLayout="column">
+      <span class="path">Home > Dati</span>
+
+      <div fxLayout="row" class="menu-slider-container">
+        <p class="menu-slider-text">Dimensioni menù:</p>
+
+        <mat-slider
+          [max]="2"
+          [min]="0"
+          [step]="1"
+          [thumbLabel]="true"
+          [displayWith]="formatLabel"
+          [tickInterval]="1"
+          [(ngModel)]="menuStatus"
+          (change)="onMenuStatusChange($event)"
+          aria-labelledby="example-name-label"
+          class="menu-slider"
+        >
+        </mat-slider>
+      </div>
+    </div>
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign.xs="center"
+      fxLayoutAlign.gt-xs="space-between"
+      fxFlex.gt-xs="3 1 0"
+      comment='fxFlex.xs="2 0 0"'
+    >
+      <!--div *ngIf="constantsService.isMobile"><button (click)="drawer.toggle()">Layer</button></div-->
+      <span
+        *ngIf="selectedSensorDescription || selectedMapDescription"
+        class="viewingData"
+        fxLayout
+        fxLayoutGap="4px"
+        ><span>Stai visualizzando:</span>
+        <mat-icon class="sensor-icon" [svgIcon]="selectedSensorIcon"></mat-icon
+        >{{ selectedSensorDescription }}
+        <mat-icon class="map-icon" [svgIcon]="selectedMapIcon"></mat-icon
+        ><span>{{ selectedMapDescription }}</span></span
+      >
+    </div>
+    <div comment='fxFlex.xs fxFlex.gt-xs="3 1 0"' class="updateTime">
+      <span *ngIf="selectedSensorDescription"
+        >Layer sens. aggiornato il
+        {{ selectedSensorDateTime | date: "dd/MM/YYYY HH:mm:ss z" }}</span
+      >
+    </div>
+    <div comment='fxFlex.xs fxFlex.gt-xs="3 1 0"' class="updateTime">
+      <span *ngIf="selectedMapDescription"
+        >Layer mappa aggiornato il
+        {{ selectedMapDateTime | date: "dd/MM/YYYY HH:mm:ss z" }}</span
+      >
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container fxFlex="10 1 0" fxLayout="column" autosize>
+  <mat-drawer
+    #drawer
+    mode="side"
+    [opened]="true"
+    class="layermenu"
+    [ngClass]="{ closed: !isLayerMenuOpen, rail: isLayerMenuRail }"
+  >
+    <button
+      *ngIf="isLayerMenuOpen"
+      class="close"
+      (click)="toggleRailLayerMenu()"
+    >
+      <mat-icon *ngIf="isLayerMenuRail" svgIcon="btn-arrow-right"></mat-icon>
+      <mat-icon *ngIf="!isLayerMenuRail" svgIcon="btn-arrow-left"></mat-icon>
+    </button>
+    <div class="hideWhenMenuClosed">
+      <div
+        class="visualizaztionContainer"
+        *ngIf="mediaObserver.isActive('gt-xs')"
+      >
+        <h2 class="menutitle" i18n>Visualizzazione</h2>
+        <div fxLayout="row">
+          <visualization-menu></visualization-menu>
+          <a
+            alt="Clicca qui e successivamente su un punto della mappa per informazioni"
+            title="Clicca qui e successivamente su un punto della mappa per informazioni"
+            aria-label="Clicca qui e successivamente su un punto della mappa per informazioni"
+            class="visButton"
+            (click)="toggleInfoLayerSelection()"
+            [ngClass]="{ selected: infoLayerSelected }"
+          >
+            <div class="visButton">
+              <mat-icon svgIcon="info-layer"></mat-icon>
+              <span>Info<br />layer</span>
+            </div>
+          </a>
+        </div>
+        <hr class="menuseparator" />
+      </div>
+
+      <div
+        *ngIf="constantsService.logged"
+        class="timepickerContainer"
+        [ngClass]="{ hidden: isLayerMenuRail }"
+      >
+        <h2 class="menutitle">DATA</h2>
+        <date-time-picker
+          [initialDateValue]="session.getSelectedDateTimeCookie()"
+          (dateTimeChange)="onDateTimeChanged($event)"
+        ></date-time-picker>
+      </div>
+
+      <h2 class="menutitle" i18n>Dati</h2>
+      <h3 i18n>Selezione layer</h3>
+      <div class="subtitle">Puoi selezionare combinando stazioni e mappe</div>
+      <layer-menu
+        class="menu"
+        [ngClass]="{ rail: isLayerMenuRail }"
+        (menuSelectedItemsChanged)="onLayerMenuItemsChanged($event)"
+      ></layer-menu>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content fxFlex fxLayout="column">
+    <div
+      id="legends"
+      [ngClass.xs]="{ mobile: true }"
+      [ngClass]="{
+        fullWidth: isLegendOpen(),
+        onlyBtns: !isLegendOpen()
+      }"
+    >
+      <div *ngIf="activeSensorNode?.sensor?.legendLink" id="legendSensor">
+        <button
+          *ngIf="activeSensorNode?.sensor?.legendLink"
+          mat-mini-fab
+          (click)="toggleLegendSensor()"
+          aria-label="Fai click per mostrare/nascondere legenda"
+        >
+          <mat-icon [svgIcon]="selectedSensorIcon"></mat-icon></button
+        ><img
+          *ngIf="isLegendSensorVisible"
+          [src]="'assets/' + activeSensorNode?.sensor?.legendLink!"
+        />
+      </div>
+
+      <div *ngIf="activeHydroNode?.hydro?.legendLink" id="legendSensor">
+        <button
+          *ngIf="activeHydroNode?.hydro?.legendLink"
+          mat-mini-fab
+          (click)="toggleLegendSensor()"
+          aria-label="Fai click per mostrare/nascondere legenda"
+        >
+          <mat-icon [svgIcon]="selectedSensorIcon"></mat-icon></button
+        ><!--img
+          *ngIf="isLegendSensorVisible"
+          [src]="'assets/' + activeHydroNode?.hydro?.legendLink!"
+        /-->
+      </div>
+
+      <div *ngIf="activeMapNode?.map?.legendLink" id="legendMap">
+        <button
+          *ngIf="activeMapNode?.map?.legendLink"
+          mat-mini-fab
+          (click)="toggleLegendMap()"
+          aria-label="Fai click per mostrare/nascondere legenda"
+        >
+          <mat-icon [svgIcon]="selectedMapIcon"></mat-icon></button
+        ><img
+          *ngIf="isLegendMapVisible"
+          [src]="'assets/' + activeMapNode?.map?.legendLink!"
+        />
+      </div>
+
+      <div *ngIf="activeRadNode?.radar?.legendLink" id="legendMap">
+        <button
+          *ngIf="activeRadNode?.radar?.legendLink"
+          mat-mini-fab
+          (click)="toggleLegendMap()"
+          aria-label="Fai click per mostrare/nascondere legenda"
+        >
+          <mat-icon [svgIcon]="selectedMapIcon"></mat-icon></button
+        ><img
+          *ngIf="isLegendMapVisible"
+          [src]="'assets/' + activeRadNode?.radar?.legendLink!"
+        />
+      </div>
+
+      <div
+        *ngIf="activeSatNode?.sat?.legendLink"
+        id="legendMap"
+        class="legendSatelliteIcon"
+      >
+        <button
+          *ngIf="activeSatNode?.sat?.legendLink"
+          mat-mini-fab
+          (click)="toggleLegendMap()"
+          aria-label="Fai click per mostrare/nascondere legenda"
+        >
+          <mat-icon [svgIcon]="selectedMapIcon"></mat-icon></button
+        ><img
+          *ngIf="isLegendMapVisible"
+          [src]="'assets/' + activeSatNode?.sat?.legendLink!"
+        />
+      </div>
+    </div>
+    <div id="dati-map" class="map-container" fxFlex fxLayout="column"></div>
+    <div id="popup" class="ol-popup">
+      <a
+        id="popup-closer"
+        class="ol-popup-closer"
+        (click)="clearInfoLayer()"
+      ></a>
+      <div id="popup-content">
+        <img
+          src="assets/img/iphone-spinner-2.gif"
+          [ngClass]="{ hidden: overlayFeatures.length > 0 }"
+        />
+        <div *ngFor="let feature of overlayFeatures; index as i">
+          <div *ngFor="let key of objectKeys(feature.properties)">
+            {{ key }}:{{ feature.properties[key] }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<bottom-visualization-menu
+  *ngIf="mediaObserver.isActive('xs')"
+></bottom-visualization-menu>

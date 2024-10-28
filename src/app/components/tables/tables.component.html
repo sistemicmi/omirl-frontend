@@ -1,0 +1,1238 @@
+<div
+  comment='fxFlex.gt-xs fxFlex.xs="2.5 1 0" fxLayout.xs="column" fxLayoutAlign="start center"'
+  fxLayout.gt-xs="row"
+  fxLayoutAlign.xs="stretch"
+  class="tabletoolbar"
+  ngClass.gt-xs="wide"
+>
+  <div
+    fxLayout.xs="column"
+    fxLayout.gt-xs="row"
+    fxFlex
+    fxLayoutAlign.gt-xs="space-between center"
+    fxLayoutAlign.xs="space-between stretch"
+    fxLayoutGap="5px"
+  >
+    <div
+      style="text-align: left"
+      fxFlex.gt-xs
+      fxFlex.xs="2 0 0"
+      fxLayout="row wrap"
+      fxLayoutalign="start"
+      fxLayoutGap="10px"
+    >
+      <div fxLayout="column">
+        <span class="path">Home > </span>
+        <span class="tableName">Tabelle</span>
+
+        <div fxLayout="row" class="menu-slider-container">
+          <p class="menu-slider-text">Dimensioni menù:</p>
+
+          <mat-slider
+            [max]="2"
+            [min]="0"
+            [step]="1"
+            [thumbLabel]="true"
+            [displayWith]="formatLabel"
+            [tickInterval]="1"
+            [(ngModel)]="menuStatus"
+            (change)="onMenuStatusChange($event)"
+            aria-labelledby="example-name-label"
+            class="menu-slider"
+          >
+          </mat-slider>
+        </div>
+      </div>
+    </div>
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign.xs="center"
+      fxLayoutAlign.gt-xs="space-between"
+      fxFlex.gt-xs="3 1 0"
+      comment='fxFlex.xs="2 0 0"'
+    >
+      <div
+        comment='fxFlex.xs fxFlex.gt-xs="3 1 0"'
+        class="updateTime"
+        [ngClass.xs]="{ mobile: true }"
+      >
+        <span *ngIf="id != 'modelstable'"
+          >Dati aggiornati il {{ updateTime }} ore locali</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container fxLayout="column" autosize>
+  <mat-drawer
+    #drawer
+    mode="side"
+    [opened]="true"
+    class="layermenu"
+    [ngClass]="{
+      closed: !isTablesMenuOpen,
+      rail: isTablesMenuRail
+    }"
+  >
+    <button
+      *ngIf="isTablesMenuOpen"
+      class="close"
+      (click)="toggleRailTablesMenu()"
+    >
+      <mat-icon *ngIf="isTablesMenuRail" svgIcon="btn-arrow-right"></mat-icon>
+      <mat-icon *ngIf="!isTablesMenuRail" svgIcon="btn-arrow-left"></mat-icon>
+    </button>
+    <div class="hideWhenMenuClosed">
+      <h2 i18n>Selezione tabelle</h2>
+
+      <div class="subtitle">Seleziona una tabella dal menù sottostante</div>
+
+      <div
+        *ngIf="isLogged()"
+        class="timepickerContainer"
+        [ngClass]="{ hidden: isTablesMenuRail }"
+      >
+        <date-time-picker
+          [initialDateValue]="session.getSelectedDateTimeCookie()"
+          (dateTimeChange)="onDateTimeChanged($event)"
+        ></date-time-picker>
+      </div>
+      <div class="menu">
+        <tables-menu
+          [path]="'/' + id + '/' + selectedSensorCode"
+          [ngClass]="{ rail: isTablesMenuRail }"
+          (menuItemClicked)="onTablesMenuItemClicked($event)"
+        ></tables-menu>
+      </div>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content fxLayout="column">
+    <!-- sensors table ---------------------------------------------------------------->
+
+    <div *ngIf="id == 'sensorstable'">
+      <div fxLayout="row" class="downloadTitlebar">
+        <h1 class="title pagename">VALORI STAZIONI</h1>
+
+        <button class="download" (click)="exportSensorsTable()">
+          <mat-icon
+            svgIcon="{{ icons.registerSvgIcon(downloadPath) }}"
+          ></mat-icon>
+          <p>SCARICA .CSV</p>
+        </button>
+      </div>
+
+      <mat-accordion class="expansionPanel" [ngClass.xs]="{ mobile: true }">
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div fxLayout="row" class="filtersInPanel">
+                <mat-icon>filter_alt</mat-icon>
+                <p>Filtra</p>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div fxLayout="row" class="filterRow" fxLayout.xs="column">
+            <div fxFlex fxLayout="column" class="filter">
+              <h4>Nome</h4>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Search"
+                  [formControl]="nameControl"
+                />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" class="filter">
+              <h4>Codice</h4>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Search"
+                  [formControl]="codeControl"
+                />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" class="filter">
+              <h4>Provincia</h4>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Search"
+                  [formControl]="districtControl"
+                />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" class="filter">
+              <h4>Comune</h4>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Search"
+                  [formControl]="municipalityControl"
+                />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" class="filter">
+              <h4>Area</h4>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Search"
+                  [formControl]="areaControl"
+                />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" class="filter">
+              <h4>Bacino</h4>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Search"
+                  [formControl]="basinControl"
+                />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column" class="filter">
+              <h4>Corso d'acqua</h4>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Search"
+                  [formControl]="underbasinControl"
+                />
+              </mat-form-field>
+            </div>
+
+            <button
+              *ngIf="!isFiltered"
+              mat-raised-button
+              class="filterButton"
+              (click)="filter()"
+              [ngClass.xs]="{ mobile: true }"
+            >
+              <span> Filtra</span>
+            </button>
+            <button
+              *ngIf="isFiltered"
+              mat-raised-button
+              class="clearFilterButton"
+              (click)="cleanFilters()"
+              [ngClass.xs]="{ mobile: true }"
+            >
+              Pulisci filtri
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div fxLayout="row" class="filterRow" [ngClass.xs]="{ mobile: true }">
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Nome</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="nameControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Codice</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="codeControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Provincia</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="districtControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Comune</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="municipalityControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Area</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="areaControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Bacino</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="basinControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Corso d'acqua</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="underbasinControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <button
+          *ngIf="!isFiltered"
+          mat-raised-button
+          class="filterButton"
+          (click)="filter()"
+          [ngClass.xs]="{ mobile: true }"
+        >
+          <span> Filtra</span>
+        </button>
+        <button
+          *ngIf="isFiltered"
+          mat-raised-button
+          class="clearFilterButton"
+          (click)="cleanFilters()"
+        >
+          Pulisci filtri
+        </button>
+      </div>
+
+      <div
+        class="tablescroll"
+        [ngClass.xs]="{ mobile: true, sensorstable: true }"
+      >
+        <table
+          mat-table
+          matSort
+          (matSortChange)="sortData($event, 0)"
+          [dataSource]="dataSource[0]"
+          class="mat-elevation-z8 demo-table"
+        >
+          <ng-container
+            *ngFor="let col of displayedColumns[0]"
+            [matColumnDef]="col"
+          >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="{{ col }}">
+              {{ displayedNames[0][col] }}
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              (click)="
+                openChartByCode(
+                  element.code,
+                  '',
+                  element.district,
+                  element.name
+                )
+              "
+            >
+              {{ element[col] }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns[0]"></tr>
+        </table>
+      </div>
+
+      <img
+        src="assets/img/mobileSlider.png"
+        class="mobileSlider"
+        [ngClass.xs]="{ mobile: true }"
+      />
+      <div class="mobileInstructions" [ngClass.xs]="{ mobile: true }">
+        SCORRI PER VISUALIZZARE
+      </div>
+    </div>
+
+    <!--------------------------------------------------------------------------------->
+
+    <!-- max table -------------------------------------------------------------------->
+    <div *ngIf="id == 'maxtable'">
+      <div fxLayout="row" class="downloadTitlebar">
+        <h1 class="title pagename">MASSIMI DI PRECIPITAZIONE</h1>
+
+        <button class="download" (click)="exportMaxTable()">
+          <mat-icon
+            svgIcon="{{ icons.registerSvgIcon(downloadPath) }}"
+          ></mat-icon>
+          <p>SCARICA.CSV</p>
+        </button>
+      </div>
+
+      <h1 class="subtitle">Zone Allerta</h1>
+      <div class="tablescroll" [ngClass.xs]="{ mobile: true }">
+        <table
+          mat-table
+          matSort
+          (matSortChange)="sortData($event, 0)"
+          [dataSource]="dataSource[0]"
+          class="mat-elevation-z8 demo-table"
+        >
+          <ng-container
+            *ngFor="let col of displayedColumns[0]"
+            [matColumnDef]="col"
+          >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="{{ col }}">
+              {{ displayedNames[0][col] }}
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="classFromColumn(element, col)"
+              (click)="
+                openChartByCode(stationCodeFromColumn(element, col), 'rain1h')
+              "
+            >
+              {{ element[col] }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns[0]"></tr>
+        </table>
+      </div>
+
+      <img
+        src="assets/img/mobileSlider.png"
+        class="mobileSlider"
+        [ngClass.xs]="{ mobile: true }"
+      />
+      <div class="mobileInstructions" [ngClass.xs]="{ mobile: true }">
+        SCORRI PER VISUALIZZARE
+      </div>
+
+      <h1 class="subtitle">Province</h1>
+      <div class="tablescroll" [ngClass.xs]="{ mobile: true }">
+        <table
+          mat-table
+          matSort
+          (matSortChange)="sortData($event, 1)"
+          [dataSource]="dataSource[1]"
+          class="mat-elevation-z8 demo-table"
+        >
+          <ng-container
+            *ngFor="let col of displayedColumns[0]"
+            [matColumnDef]="col"
+          >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="{{ col }}">
+              {{ displayedNames[0][col] }}
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="classFromColumn(element, col)"
+              (click)="
+                openChartByCode(stationCodeFromColumn(element, col), 'rain1h')
+              "
+            >
+              {{ element[col] }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns[0]"></tr>
+        </table>
+      </div>
+
+      <img
+        src="assets/img/mobileSlider.png"
+        class="mobileSlider"
+        [ngClass.xs]="{ mobile: true }"
+      />
+      <div class="mobileInstructions" [ngClass.xs]="{ mobile: true }">
+        SCORRI PER VISUALIZZARE
+      </div>
+    </div>
+
+    <!--------------------------------------------------------------------------------->
+
+    <!-- summary table ---------------------------------------------------------------->
+
+    <div *ngIf="id == 'summarytable'">
+      <h1 class="title pagename simpleTitlebar">
+        ESTREMI DI TEMPERATURA E VENTO
+      </h1>
+
+      <h1 class="subtitle">Sintesi dei Dati di Temperatura</h1>
+      <div class="tablescroll" [ngClass.xs]="{ mobile: true }">
+        <table
+          mat-table
+          matSort
+          (matSortChange)="sortData($event, 0)"
+          [dataSource]="dataSource[0]"
+          class="mat-elevation-z8 demo-table"
+        >
+          <ng-container
+            *ngFor="let col of displayedColumns[0]"
+            [matColumnDef]="col"
+          >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="{{ col }}">
+              {{ displayedNames[1][col] }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div
+                *ngIf="displayedNames[1][col] == 'Nella stazione'"
+                (click)="openChartByStation(element[col], 'temp')"
+              >
+                {{ element[col] }}
+              </div>
+              <div *ngIf="displayedNames[1][col] != 'Nella stazione'">
+                {{ element[col] }}
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns[0]"></tr>
+        </table>
+      </div>
+
+      <img
+        src="assets/img/mobileSlider.png"
+        class="mobileSlider"
+        [ngClass.xs]="{ mobile: true }"
+      />
+      <div class="mobileInstructions" [ngClass.xs]="{ mobile: true }">
+        SCORRI PER VISUALIZZARE
+      </div>
+
+      <div class="tablescroll" [ngClass.xs]="{ mobile: true }">
+        <table
+          mat-table
+          matSort
+          (matSortChange)="sortData($event, 1)"
+          [dataSource]="dataSource[1]"
+          class="mat-elevation-z8 demo-table"
+        >
+          <ng-container
+            *ngFor="let col of displayedColumns[0]"
+            [matColumnDef]="col"
+          >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="{{ col }}">
+              {{ displayedNames[0][col] }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div
+                *ngIf="displayedNames[0][col] == 'Nella stazione'"
+                (click)="openChartByStation(element[col], 'temp')"
+              >
+                {{ element[col] }}
+              </div>
+              <div *ngIf="displayedNames[0][col] != 'Nella stazione'">
+                {{ element[col] }}
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns[0]"></tr>
+        </table>
+      </div>
+
+      <img
+        src="assets/img/mobileSlider.png"
+        class="mobileSlider"
+        [ngClass.xs]="{ mobile: true }"
+      />
+      <div class="mobileInstructions" [ngClass.xs]="{ mobile: true }">
+        SCORRI PER VISUALIZZARE
+      </div>
+
+      <h1 class="subtitle">Sintesi dei Dati di Vento</h1>
+
+      <div class="tablescroll" [ngClass.xs]="{ mobile: true }">
+        <table
+          mat-table
+          matSort
+          (matSortChange)="sortData($event, 2)"
+          [dataSource]="dataSource[2]"
+          class="mat-elevation-z8 demo-table"
+        >
+          <ng-container
+            *ngFor="let col of displayedColumns[1]"
+            [matColumnDef]="col"
+          >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="{{ col }}">
+              {{ displayedNames[2][col] }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div
+                *ngIf="displayedNames[2][col] == 'Nella stazione'"
+                (click)="openChartByStation(element[col], 'Vento')"
+              >
+                {{ element[col] }}
+              </div>
+              <div *ngIf="displayedNames[2][col] != 'Nella stazione'">
+                {{ element[col] }}
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns[1]"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns[1]"></tr>
+        </table>
+      </div>
+
+      <img
+        src="assets/img/mobileSlider.png"
+        class="mobileSlider"
+        [ngClass.xs]="{ mobile: true }"
+      />
+      <div class="mobileInstructions" [ngClass.xs]="{ mobile: true }">
+        SCORRI PER VISUALIZZARE
+      </div>
+    </div>
+    <!--------------------------------------------------------------------------------->
+
+    <!-- alertzones table ------------------------------------------------------------->
+
+    <div *ngIf="id == 'alertzonestable'">
+      <div fxLayout="column">
+        <div
+          fxLayout="row"
+          fxLayout.xs="column"
+          class="idroaree"
+          [ngClass.xs]="{ mobile: true }"
+        >
+          <img class="region" src="assets/img/regione.png" />
+          <img class="legend" src="assets/img/legenda.png" />
+        </div>
+      </div>
+      <h1 class="title pagename simpleTitlebar">LIVELLI IDROMETRICI</h1>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelA = true" (closed)="panelA = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">A [Marittimi di Ponente]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 0)"
+              [dataSource]="dataSource[0]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelB = true" (closed)="panelB = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">B [Marittimi di Centro]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 1)"
+              [dataSource]="dataSource[1]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelC = true" (closed)="panelC = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">C [Marittimi di Levante]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 2)"
+              [dataSource]="dataSource[2]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelD = true" (closed)="panelD = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">D [Padani di Ponente]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 3)"
+              [dataSource]="dataSource[3]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelE = true" (closed)="panelE = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">E [Padani di Levante]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 4)"
+              [dataSource]="dataSource[4]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelCP = true"
+          (closed)="panelCP = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">C+ [C+ Magra]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 5)"
+              [dataSource]="dataSource[5]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelCL = true"
+          (closed)="panelCL = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">C- [C- Magra]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h1 class="subtitle"></h1>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 6)"
+              [dataSource]="dataSource[6]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelM = true" (closed)="panelM = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="alertzonesPanel">M [Magra]</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div
+            class="tablescroll alertzonesTable"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            <table
+              mat-table
+              matSort
+              (matSortChange)="sortData($event, 7)"
+              [dataSource]="dataSource[7]"
+              class="mat-elevation-z8 demo-table"
+            >
+              <ng-container
+                *ngFor="let col of displayedColumns[0]"
+                [matColumnDef]="col"
+              >
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header="{{ col }}"
+                >
+                  {{ displayedNames[0][col] }}
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  (click)="openChartByCode(element.code, 'Idro')"
+                >
+                  {{ element[col] }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns[0]"
+              ></tr>
+            </table>
+          </div>
+
+          <img
+            src="assets/img/mobileSlider.png"
+            class="mobileSlider alertzonesMobileSlider"
+            [ngClass.xs]="{ mobile: true }"
+          />
+          <div
+            class="mobileInstructions alertZonesMobileInstructions"
+            [ngClass.xs]="{ mobile: true }"
+          >
+            SCORRI PER VISUALIZZARE
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <!--------------------------------------------------------------------------------->
+
+    <!-- models table ----------------------------------------------------------------->
+
+    <div *ngIf="id == 'modelstable'">
+      <div fxLayout="row" class="downloadTitlebar">
+        <h1 class="title pagename">MODELLI IDROLOGICI</h1>
+
+        <button class="download" (click)="exportModelsTable()">
+          <mat-icon
+            svgIcon="{{ icons.registerSvgIcon(downloadPath) }}"
+          ></mat-icon>
+          <p>SCARICA.CSV</p>
+        </button>
+      </div>
+
+      <div fxLayout="row" class="filterRow">
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Bacino</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="modelsBasinControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex fxLayout="column" class="filter">
+          <h4>Sezione</h4>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [formControl]="modelsSectionControl"
+            />
+          </mat-form-field>
+        </div>
+
+        <button
+          *ngIf="!isFiltered"
+          mat-raised-button
+          class="filterButton"
+          (click)="filter()"
+        >
+          <span> Filtra</span>
+        </button>
+        <button
+          *ngIf="isFiltered"
+          mat-raised-button
+          class="clearFilterButton"
+          (click)="cleanFilters()"
+        >
+          Pulisci filtri
+        </button>
+      </div>
+
+      <table
+        mat-table
+        matSort
+        (matSortChange)="sortData($event, 0)"
+        [dataSource]="dataSource[0]"
+        class="mat-elevation-z8 demo-table"
+      >
+        <ng-container
+          *ngFor="let col of displayedColumns[0]"
+          [matColumnDef]="col"
+        >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="{{ col }}">
+            {{ displayedNames[0][col] }}
+          </th>
+          <ng-container mat-cell *matCellDef="let element">
+            <td *ngIf="col == 'basinName'" mat-cell>{{ element[col] }}</td>
+            <td mat-cell *ngIf="col != 'basinName'">
+              <div fxLayout="row">
+                <div
+                  *ngFor="let i of element.sectionBasinsCodes"
+                  [ngClass]="classFromColor(i.color, id)"
+                >
+                  {{ i.sectionName }}
+                </div>
+              </div>
+            </td>
+          </ng-container>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns[0]"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns[0]"></tr>
+      </table>
+    </div>
+
+    <!--------------------------------------------------------------------------------->
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,41 @@
+<mat-tree
+  fxFlex
+  fxlayout="column"
+  style="background-color: inherit"
+  [dataSource]="dataSource"
+  [treeControl]="treeControl"
+  [ngClass]="{ noMobile: !isMobile }"
+>
+  <!-- This is the tree node template for leaf nodes -->
+  <mat-tree-node
+    fxlayout="column"
+    *matTreeNodeDef="let node"
+    matTreeNodePadding
+    [matTreeNodePaddingIndent]="10"
+    [ngClass]="{ active: node.isActive, hasIcon: !!node.icon }"
+  >
+    <hr *ngIf="node.level == 0" />
+
+    <a (click)="layerMenuItemClicked(node)">
+      <mat-icon [svgIcon]="node.icon"></mat-icon>
+      <span class="leafnodetext">{{ node.name }}</span>
+    </a>
+  </mat-tree-node>
+
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-tree-node
+    fxlayout="column"
+    *matTreeNodeDef="let node; when: hasChild"
+    matTreeNodePadding
+    [matTreeNodePaddingIndent]="10"
+    [ngClass]="{ hasIcon: !!node.icon }"
+  >
+    <a matTreeNodeToggle>
+      <mat-icon [svgIcon]="node.icon"></mat-icon>
+      <span class="nodetext">{{ node.name }}</span>
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+      </mat-icon>
+    </a>
+  </mat-tree-node>
+</mat-tree>

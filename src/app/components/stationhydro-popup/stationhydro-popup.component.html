@@ -1,0 +1,54 @@
+<div class="stationpopup">
+  <button *ngIf="constants.isMobile" class="close" (click)="close($event)">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h1 mat-dialog-title>{{ data.name }}</h1>
+  <h3 mat-dialog-title>{{ data.basin }} [{{ data.river }}]</h3>
+  <h2 mat-dialog-title [ngClass.xs]="{ mobile: true }">
+    {{ data.municipality }}
+  </h2>
+  <div class="sensorname">
+    {{ translate.menuTranslations[data.sensorDescription] }}
+  </div>
+  <div class="stationMainValue" fxLayout="row" fxLayoutAlign="center center">
+    <!--mat-icon [svgIcon]="imgUrl == '' ? data.imageLinkOff ?? '' : ''" (click)="openChart($event)"><img src={{imgUrl}} class="popupIcon"/></mat-icon
+	  -->
+    <div>
+      <div *ngIf="data.warningArea">Area: {{ data.warningArea }}</div>
+      <div>{{ data.basinClass }} ({{ data.basinArea }} km<sup>2</sup>)</div>
+    </div>
+  </div>
+  <div
+    *ngIf="data.referenceDate"
+    class="stationDate"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    [ngClass.xs]="{ mobile: true }"
+  >
+    <mat-icon [svgIcon]="clockIcon"></mat-icon>
+    {{ refDateLocale }} - Locale
+  </div>
+
+  <div class="stationCode" [ngClass.xs]="{ mobile: true }">
+    Codice: {{ data.shortCode }}
+  </div>
+  <div
+    *ngIf="data.referenceDate"
+    class="stationDateUTC"
+    [ngClass.xs]="{ mobile: true }"
+  >
+    {{ refDateUTC }} UTC
+  </div>
+  <div class="stationCoords" [ngClass.xs]="{ mobile: true }">
+    Lat: {{ data.lat }} Lon: {{ data.lon }}
+  </div>
+  <div class="stationCoords">
+    <a
+      class="otherdata"
+      (click)="openChart($event)"
+      [ngClass.xs]="{ mobile: true }"
+      >Visualizza altri dati</a
+    >
+  </div>
+  <div mat-dialog-content></div>
+</div>

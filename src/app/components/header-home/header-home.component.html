@@ -1,0 +1,39 @@
+<div fxLayout fxLayoutAlign="start center" class="logo-header">
+  <!--mat-toolbar-->
+  <div class="logowrapper" [routerLink]="'/'" style="cursor: pointer">
+    <img class="logo-header omirl" src="assets/img/omirl-logo-blu2.png" />
+  </div>
+  <div class="logowrapper" [routerLink]="'/'" style="cursor: pointer">
+    <img class="logo-header arpal" src="assets/img/logo_new_arpal.png" />
+  </div>
+  <div fxHide.gt-xs fxFlex="grow">
+    <button
+      fxLayout.xs="column"
+      fxLayoutAlign.xs="center end"
+      fxFlex.xs="1 0 0"
+      style="display: block; margin-left: auto"
+      (click)="onToggleSidenav()"
+    >
+      <mat-icon svgIcon="menu"></mat-icon>
+      <span class="menubutton">Menu</span>
+    </button>
+  </div>
+  <app-mainmenu fxHide.lt-sm fxFlex fxLayoutAlign="end"></app-mainmenu>
+  <!--/mat-toolbar-->
+</div>
+<!--div fxFlexFill>
+  <div fxLayout="column" fxLayoutGap="32px" [style.height]="'100%'">
+    <mat-card class="card-margins">
+      <div
+        fxLayout="column"
+        fxLayoutGap="32px"
+        fxLayout.lt-sm="column"
+        fxLayoutGap.lt-sm="10px"
+      >
+        <div fxFlex="0 0 10%">
+          <img mat-card-image src="assets/img/header-home.png" />
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div-->

@@ -1,0 +1,126 @@
+@import "../../../assets/css/colors.less";
+
+:host.rail {
+  mat-tree-node {
+    mat-icon {
+      margin-right: 0;
+    }
+
+    hr {
+      background-color: transparent;
+    }
+
+    &.hasIcon {
+      .leafnodetext,
+      .nodetext {
+        display: none;
+      }
+    }
+
+    &:not(.hasIcon)[style] {
+      margin-left: -23px;
+    }
+  }
+}
+
+.coloredContainerX {
+  padding: 1%;
+  margin: 0;
+}
+
+.mat-card {
+  background-color: @blue;
+}
+
+.world {
+  header {
+    text-decoration: none;
+    color: @menugrey;
+    font-size: 1.4em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 1em 0 0.5em 0;
+  }
+
+  p {
+    color: @menugrey;
+    font-size: 1.2em;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.headerimg {
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+mat-tree-node {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  color: @bodygrey;
+  min-height: auto;
+  cursor: pointer;
+
+  &.active,
+  &[aria-level="1"] {
+    color: @mainmenubg;
+    font-weight: bold;
+  }
+
+  &[aria-level="1"] {
+    padding-bottom: 0;
+    padding-top: 0px;
+    margin-top: 10px;
+    text-transform: uppercase;
+
+    button {
+      font-family: Arial, Helvetica, sans-serif;
+      text-transform: uppercase;
+    }
+  }
+
+  &:not([aria-level="1"]) {
+    padding-top: 16px;
+
+    .mat-icon-button {
+      height: auto;
+      line-height: 0;
+    }
+  }
+
+  svg {
+    path {
+      stroke: @bodygrey;
+    }
+  }
+
+  &.noMobile {
+    font-size: 14px;
+  }
+
+  mat-icon {
+    margin-right: 12px;
+  }
+
+  a {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    span {
+      flex: 1;
+    }
+  }
+  hr {
+    width: 80%;
+    background-color: @blue;
+    height: 1px;
+    border: 0;
+  }
+}

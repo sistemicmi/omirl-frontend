@@ -1,0 +1,362 @@
+@import "../../../assets/css/colors.less";
+
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 0;
+}
+
+.path {
+  font-size: 15px;
+  margin-bottom: 1%;
+}
+.tableName {
+  display: inline-block;
+  font-size: 24px;
+}
+.layer {
+  margin-left: -20%;
+  margin-top: -10%;
+}
+.btn-select {
+  background-color: #ffffff;
+  color: @mainmenubg;
+  height: 40px;
+  margin-bottom: 2%;
+  margin-left: 2%;
+  margin-top: 5%;
+}
+
+.pagename {
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-top: 2%;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+mat-toolbar {
+  background-color: @mainmenubg;
+  color: @mainmenucolor;
+}
+mat-drawer {
+  overflow: visible;
+
+  &.closed .hideWhenMenuClosed {
+    display: none;
+  }
+
+  &.rail .hideWhenMenuClosed {
+    h2,
+    .subtitle,
+    hr {
+      display: none;
+    }
+  }
+}
+mat-drawer-container {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+
+  h2 {
+    color: @mainmenubg;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+}
+
+mat-drawer-content {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+}
+.layermenu {
+  background-color: @secondarymenubg;
+  color: @secondarymenucolor;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  &.fullscreen {
+    z-index: 1 !important;
+  }
+
+  &.rail {
+    padding-right: 0px;
+    padding-left: 5px;
+  }
+
+  &.closed {
+    padding: 0;
+  }
+
+  button {
+    &.close {
+      position: absolute;
+      top: 50%;
+      right: -11px;
+      border: 0;
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+.inserted {
+  border-style: inset;
+  border-width: 4px;
+  border-color: #c4c4c4;
+  margin-bottom: 2%;
+}
+.dateTimeInfo {
+  color: blue;
+  max-width: 250px;
+}
+.imageArea {
+  align-items: center;
+
+  &.mobile img {
+    margin-top: 10%;
+    width: 90%;
+    //height: 90%;
+  }
+
+  img {
+    width: 70%;
+    /*height: 70%;*/
+  }
+}
+
+.desktopButtonsArea {
+  display: flex !important;
+  width: 100%;
+  justify-content: center;
+
+  &.mobile {
+    display: none !important;
+  }
+}
+.mobileButtonsArea {
+  display: none !important;
+
+  &.mobile {
+    display: flex !important;
+    width: 100%;
+    justify-content: space-evenly;
+
+    p {
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+      margin-right: 2px;
+    }
+  }
+}
+.homePageButtonsRow {
+  margin-top: 2%;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.homePageButtonsContainer {
+  margin-top: 2%;
+  align-items: center;
+}
+
+.homePageButtons {
+  background-color: #7fbbdb;
+  width: 88px;
+  height: 88px;
+
+  p {
+    color: grey;
+  }
+
+  &.active {
+    background-color: @mainmenubg;
+  }
+
+  .mat-icon {
+    height: 48px !important;
+    width: 48px !important;
+    font-size: 48px !important;
+  }
+}
+
+header {
+  color: @mainmenubg;
+  font-weight: bold;
+}
+
+.text {
+  margin-top: 20px;
+}
+
+.homePageLinks {
+  align-items: center;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding: 2%;
+
+  &.mobile {
+    padding-top: 8%;
+    padding-bottom: 8%;
+    border-top: 0;
+    border-bottom: 0;
+  }
+}
+
+.homePageLinksArea {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  justify-content: center;
+
+  &.mobile {
+    flex-direction: column;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+}
+
+.homePageButtonsArea {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.firstArea {
+  padding-left: 0%;
+}
+
+.lastArea {
+  padding-left: 6%;
+
+  &.mobile {
+    border-top: 0;
+    padding-left: 0;
+  }
+}
+
+.pageDescription {
+  margin-top: 0;
+  margin-left: 2%;
+  margin-bottom: 2% !important;
+  color: #747474 !important;
+}
+
+.image {
+  margin-bottom: 5%;
+}
+
+/* Style the Image Used to Trigger the Modal */
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg:hover {
+  opacity: 0.7;
+}
+
+/* The Modal (background) */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 30 !important; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 90%;
+  max-width: 1100px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+  .modal-content {
+  }
+}
+
+.menu-slider-container {
+  position: relative;
+  background-color: @mainmenubg;
+  left: 0;
+  align-items: center;
+}
+
+.menu-slider {
+  margin-left: 20px;
+  padding: 0px !important;
+  height: 31px;
+}
+
+.menu-slider-text {
+  color: white;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: smaller;
+}
+
+.infoIcon {
+  position: absolute;
+
+  &.mobile {
+    margin-left: 2%;
+    bottom: 2%;
+  }
+
+  bottom: 3%;
+  margin-left: 15%;
+  margin-top: 2%;
+
+  color: @mainmenubg;
+}

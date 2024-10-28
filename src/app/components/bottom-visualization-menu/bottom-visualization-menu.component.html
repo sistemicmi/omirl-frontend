@@ -1,0 +1,13 @@
+<div class="handle" *ngIf="state == 'closed'" >
+	<div class="handleTitle" (click)="onHandleClick($event)">
+		<mat-icon>keyboard_arrow_up</mat-icon>
+		<div>Tocca per visualizzare il menu Visualizzazione</div>
+	</div>
+</div>
+<div class="content"  *ngIf="state == 'open'">
+	<hr>
+	<h2>Visualizzazione</h2>
+	<mat-icon class="close" (click)="closeBottomSheet()">close</mat-icon>
+	<visualization-menu></visualization-menu>
+</div>
+

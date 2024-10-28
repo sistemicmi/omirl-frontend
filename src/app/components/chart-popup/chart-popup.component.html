@@ -1,0 +1,13 @@
+<div class="chart" 
+	cdkDrag 
+	cdkDragRootElement=".cdk-overlay-pane"
+	ccdkDragBoundary=".cdk-overlay-container"
+	(cdkDragEnded)="dragEnd($event)"
+>
+	<div (click)="bringOnTop()" class="charttitlebar" cdkDragHandle>{{chartData?.title}}<br>{{chartData?.subTitle}}
+		<button mat-dialog-close class="closebtn"><mat-icon>close</mat-icon></button>
+	</div>
+	<!--img src="../assets/img/grafico.png"-->
+	<chart [chartData]="chartData"></chart>
+	<sensors-bar [selectedSensorType]="selectedSensorType" [chartList]="chartList" [sensorsData] = "sensorsData" (sensorClicked)="onSensorClick($event)"></sensors-bar>
+</div>

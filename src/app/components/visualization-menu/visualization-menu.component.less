@@ -1,0 +1,71 @@
+@import '../../../assets/css/colors.less';
+
+.menuContainer {
+	display: flex;
+	margin-top:10px;
+	align-items: center;
+	flex-direction: column;
+}
+
+div.visButton {
+	flex:1;
+	display:flex;
+	flex-direction:column;
+	align-items: center;
+
+	span {
+		color:@mainmenubg;
+		text-align:center;
+		font-size: 16px;
+		line-height:16px;
+	}
+}
+
+mat-icon {
+	width:32px;
+	height:32px;
+	padding:5px;
+	border-radius:4px;
+}
+
+.mat-button-toggle-checked mat-icon {
+	background-color: #104190;
+}
+
+.mat-button-toggle-group-appearance-standard {
+	border: 0;
+
+	.mat-button-toggle {
+		border: 0
+	}
+
+}
+
+.mat-button-toggle-appearance-standard {
+	background: none;
+}
+
+.mat-menu-item {
+	height:24px;
+	line-height:24px;
+
+	&.selected {
+		color: @mainmenubg;
+		font-weight: bold;
+	}
+}
+
+.bottom {
+	.panel {
+		display:flex;
+		flex-flow: wrap;
+	}
+
+	.mat-menu-item {
+		border: 0;
+		width: 50%;
+		text-align: left;
+		padding-left: 10px;
+		height: auto;
+	}
+}

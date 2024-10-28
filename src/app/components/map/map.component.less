@@ -1,0 +1,275 @@
+@import "../../../assets/css/colors.less";
+
+mat-toolbar {
+  background-color: @mainmenubg;
+  color: @mainmenucolor;
+}
+
+mat-drawer {
+  overflow: visible;
+
+  &.closed .hideWhenMenuClosed {
+    display: none;
+  }
+
+  &.rail .hideWhenMenuClosed {
+    h2,
+    h3,
+    .subtitle,
+    visualization-menu,
+    div.visButton,
+    hr {
+      display: none;
+    }
+  }
+}
+
+mat-drawer-container {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+
+  h2 {
+    color: @darkgrey;
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  h3 {
+    color: @darkgrey;
+  }
+
+  .subtitle {
+    margin-bottom: 14px;
+    max-width: 16vw;
+  }
+}
+
+mat-drawer-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#dati-map {
+  flex: 1;
+  display: flex;
+}
+
+.layermenu {
+  background-color: @secondarymenubg;
+  color: @secondarymenucolor;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  &.closed {
+    padding: 0;
+  }
+
+  button {
+    &.close {
+      position: absolute;
+      top: 50%;
+      right: -11px;
+      border: 0;
+      background: none;
+      padding: 0;
+      margin: 0;
+      z-index: 9;
+    }
+  }
+
+  &.rail {
+    padding: 2px;
+    /*padding-right: 20px;*/
+  }
+}
+
+#legends {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+
+  img {
+    max-width: 80%;
+  }
+
+  &.mobile {
+    margin-bottom: 10%;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.onlyBtns {
+  width: 0;
+}
+
+#legendSensor,
+#legendMap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  .mat-mini-fab.mat-accent {
+    background-color: @mainmenubg;
+    margin: 10px;
+  }
+}
+
+.btn-select {
+  background-color: #ffffff;
+  color: @mainmenubg;
+  height: 40px;
+}
+
+.viewingData .map-icon {
+  margin-left: 10px;
+}
+
+.menuseparator {
+  width: 70%;
+  margin: 15px auto;
+  color: @mainmenubg;
+  background-color: @mainmenubg;
+  border: 0px solid @mainmenubg;
+  height: 1px;
+}
+
+bottom-visualization-menu {
+  position: absolute;
+  bottom: 0;
+}
+
+.timepickerContainer {
+  margin-top: 30px;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+div.visButton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  span {
+    color: @mainmenubg;
+    text-align: center;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  mat-icon {
+    height: 32px;
+    width: 32px;
+    padding: 5px;
+  }
+}
+
+a.visButton {
+  cursor: pointer;
+  margin-top: 10px;
+
+  &.selected {
+    mat-icon {
+      background-color: @blue;
+    }
+  }
+
+  &:hover {
+    background-color: #e7e7e7;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 280px;
+  border: 3px solid red;
+}
+.ol-popup:after,
+.ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  cursor: pointer;
+}
+.ol-popup-closer:after {
+  content: "✖";
+}
+
+.menu {
+  margin-bottom: 30px;
+}
+
+.menu-slider-container {
+  position: relative;
+  background-color: @mainmenubg;
+  left: 0;
+  align-items: center;
+}
+
+.menu-slider {
+  margin-left: 20px;
+  padding: 0px !important;
+  height: 31px;
+}
+
+.menu-slider-text {
+  color: white;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: smaller;
+}
+.path {
+  font-size: 15px;
+  margin-bottom: 1%;
+}
+.tableName {
+  display: inline-block;
+  font-size: 24px;
+}

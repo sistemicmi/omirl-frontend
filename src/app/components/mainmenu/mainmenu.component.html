@@ -1,0 +1,215 @@
+<div fxLayout="column" class="acessarea">
+  <div
+    *ngIf="!isLogged() && !constantsService.isMobile"
+    fxLayout="row"
+    fxLayoutAlign="end center"
+  >
+    <img
+      ng-click="icon-login"
+      src="assets/img/utente.png"
+      alt="utente"
+      title="utente"
+    />
+
+    <button
+      class="reservedArea"
+      mat-button
+      #menuTrigger="matMenuTrigger"
+      [matMenuTriggerFor]="menu"
+    >
+      Area Riservata
+    </button>
+
+    <img
+      class="flag"
+      src="assets/img/italia.png"
+      alt="Italiano"
+      title="Italiano"
+    />
+
+    <img
+      class="flag"
+      src="assets/img/francia.png"
+      alt="Francese"
+      title="Francese"
+      style="margin-right: 15px"
+    />
+
+    <mat-menu #menu="matMenu" class="menu-form-wrapper" [hasBackdrop]="false">
+      <div
+        (click)="$event.stopPropagation()"
+        (keydown)="$event.stopPropagation()"
+        style="margin-top: 5%"
+      >
+        <mat-form-field appearance="fill" style="width: 90%; margin-left: 5%">
+          <mat-label>Inserisci il tuo indirizzo email</mat-label>
+          <input
+            (keydown.enter)="login(); menuTrigger.closeMenu()"
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="email"
+            required
+          />
+          <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 90%; margin-left: 5%">
+          <mat-label>Inserisci la tua password</mat-label>
+          <input
+            (keydown.enter)="login(); menuTrigger.closeMenu()"
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="password"
+          />
+          <mat-error *ngIf="password.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          style="width: 90%; margin-left: 5%"
+          (click)="login(); menuTrigger.closeMenu()"
+        >
+          Accedi
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+
+  <div *ngIf="isLogged()" fxLayout="row" fxLayoutAlign="end center">
+    <img
+      ng-click="icon-login"
+      src="assets/img/utente.png"
+      alt="utente"
+      title="utente"
+    />
+    <button
+      mat-button
+      #menuAreaRiservataTrigger="matMenuTrigger"
+      [matMenuTriggerFor]="menuAreaRiservata"
+      class="reservedArea"
+    >
+      {{ getUserName() }}
+    </button>
+
+    <img
+      class="flag"
+      src="assets/img/italia.png"
+      alt="Italiano"
+      title="Italiano"
+    />
+
+    <img
+      class="flag"
+      src="assets/img/francia.png"
+      alt="Francese"
+      title="Francese"
+      style="margin-right: 15px"
+    />
+
+    <mat-menu
+      #menuAreaRiservata="matMenu"
+      class="menu-form-wrapper"
+      [hasBackdrop]="false"
+    >
+      <div
+        (click)="$event.stopPropagation()"
+        (keydown)="$event.stopPropagation()"
+        style="margin-top: 5%"
+      >
+        <a href="settings">
+          <button
+            mat-raised-button
+            style="width: 90%; margin-left: 5%; margin-bottom: 1px"
+          >
+            Pagina personale
+          </button></a
+        >
+        <button
+          mat-raised-button
+          style="width: 90%; margin-left: 5%"
+          (click)="logout()"
+        >
+          Esci
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+
+  <mat-nav-list *ngIf="constantsService.logged">
+    <div
+      class="mainmenu"
+      fxLayout.gt-xs="row wrap"
+      fxLayout.xs="column"
+      ngClass.gt-xs="wide"
+    >
+      <button
+        fxHide
+        fxShow.xs
+        class="close"
+        (click)="sideNavService.toggleMenu($event)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-list-item [ngClass.xs]="'menumargintop'">
+        <a routerLink="">Home</a>
+      </mat-list-item>
+      <mat-list-item><a href="dati">Dati</a></mat-list-item>
+      <mat-list-item>
+        <a href="tabelle/sensorstable/Pluvio">Tabelle</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a href="satellite-radar">Satellite e radar</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a href="models-gallery">Modelli meteo marini</a>
+      </mat-list-item>
+      <mat-list-item><a href="periods">Periodi</a></mat-list-item>
+      <mat-list-item><a href="guide">Guida</a></mat-list-item>
+      <mat-list-item><a routerLink="prova">Contatti</a></mat-list-item>
+    </div>
+  </mat-nav-list>
+
+  <mat-nav-list *ngIf="!constantsService.logged">
+    <div
+      class="mainmenu"
+      fxLayout.gt-xs="row wrap"
+      fxLayout.xs="column"
+      ngClass.gt-xs="wide"
+    >
+      <button
+        fxHide
+        fxShow.xs
+        class="close"
+        (click)="sideNavService.toggleMenu($event)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-list-item [ngClass.xs]="'menumargintop'"
+        ><a routerLink="">Home</a></mat-list-item
+      >
+      <mat-list-item><a href="dati">Dati</a></mat-list-item>
+      <mat-list-item>
+        <a href="tabelle/sensorstable/Pluvio">Tabelle</a>
+      </mat-list-item>
+      <mat-list-item
+        ><a href="satellite-radar">Satellite e radar</a></mat-list-item
+      >
+      <mat-list-item
+        ><a href="models-gallery">Modelli meteo marini</a></mat-list-item
+      >
+      <mat-list-item><a href="guide">Guida</a></mat-list-item>
+      <mat-list-item><a routerLink="prova">Contatti</a></mat-list-item>
+    </div>
+  </mat-nav-list>
+</div>

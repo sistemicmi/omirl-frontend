@@ -1,0 +1,26 @@
+@import 'colors.less';
+
+.mainmenu {
+	background-color:@mainmenubg;
+	color:@mainmenucolor;
+
+	&.wide {
+		/* in wide version background color is swapped with font color*/
+		background-color:#fff;
+		a {
+			color:@mainmenubg;
+			text-align:center;
+		}
+
+		.mat-list-item {
+			height:auto;
+		}
+	}
+
+	a {
+		color:@mainmenucolor;
+		font-size:1.1em;
+		white-space:nowrap;
+	}
+
+}

@@ -1,0 +1,62 @@
+<div (click)="openChart()" class="stationpopup">
+  <button *ngIf="constants.isMobile" class="close" (click)="close($event)">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h1 mat-dialog-title>
+    {{ data.name }}
+    <span *ngIf="data.sensorType != 'Sfloc'">[{{ data.altitude }} s.l.m.]</span>
+    <span *ngIf="data.name == 'C'"> Nube-Nube </span>
+    <span *ngIf="data.name == 'G'"> Nube-Suolo</span>
+  </h1>
+  <h2 mat-dialog-title [ngClass.xs]="{ mobile: true }">
+    {{ data.municipality }}
+  </h2>
+  <div class="stationMainValue" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon
+      [svgIcon]="data.imageLinkOff"
+      (click)="openChart($event)"
+    ></mat-icon>
+    <div>
+      <div>
+        {{
+          data.value | number: "1.1-" + (data.sensorType == "Idro" ? "2" : "1")
+        }}
+        <span [innerHtml]="data.measureUnit"></span>
+      </div>
+      <div *ngIf="data.sensorType == 'Vento'">{{ data.increment }} °</div>
+    </div>
+  </div>
+  <div
+    class="stationDate"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    [ngClass.xs]="{ mobile: true }"
+  >
+    <mat-icon [svgIcon]="clockIcon"></mat-icon>
+    {{ refDateLocale }} - Locale
+  </div>
+
+  <div class="stationCode" [ngClass.xs]="{ mobile: true }">
+    Codice: {{ data.shortCode }}
+  </div>
+  <div
+    *ngIf="data.referenceDate"
+    class="stationDateUTC"
+    [ngClass.xs]="{ mobile: true }"
+  >
+    {{ refDate | date: "dd/MM/YYYY HH:mm:ss":"UTC" }} UTC
+  </div>
+  <div class="stationCoords" [ngClass.xs]="{ mobile: true }">
+    Lat: {{ data.lat }} Lon: {{ data.lon }}
+  </div>
+  <div class="stationCoords">
+    <a
+      *ngIf="data.sensorType != 'Sfloc'"
+      class="otherdata"
+      (click)="openChart($event)"
+      [ngClass.xs]="{ mobile: true }"
+      >Visualizza altri dati</a
+    >
+  </div>
+  <div mat-dialog-content></div>
+</div>
