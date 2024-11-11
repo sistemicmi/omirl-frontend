@@ -13,6 +13,9 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To build the project, you need to use a version of Node that is equal to or lower than 18. For higher versions, you need to modify the scripts as follows:
+"start": "export NODE_OPTIONS=--openssl-legacy-provider && ng serve",
+"build": "export NODE_OPTIONS=--openssl-legacy-provider && ng build",
 
 ## Running unit tests
 
